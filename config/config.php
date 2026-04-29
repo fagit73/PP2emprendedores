@@ -14,4 +14,4 @@ define('APPROOT_DESA', 'C:\xampp\htdocs\biblioteca\app');
 define('URLAPP', 'http://localhost/biblioteca');
 
 // Nombre del sitio
-define('SITENAME', 'Biblioteca Institucional');
+define('SITENAME', 'Biblioteca Sarmiento');
