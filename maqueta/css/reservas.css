@@ -1,0 +1,174 @@
+/* Reutilizamos tu configuración global */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #2c3e94 0%, #6f8df5 100%);
+}
+
+/* Contenedor más ancho para mostrar tablas o listas de reservas */
+.contenedor-reservas {
+    background: #ffffff;
+    width: 90%;
+    max-width: 1000px; /* Ajustado para que se vea como en la imagen */
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0px 25px 50px rgba(0,0,0,0.25);
+    animation: aparecer 0.6s ease;
+}
+
+/* Alineación de Título y Botones */
+.encabezado-reservas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.titulos h1 {
+    color: #2c3e94;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.titulos p {
+    color: #8a8a8a;
+    font-size: 16px;
+}
+
+/* Botones de acción */
+.acciones {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-volver-azul {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: #f5a100;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Estado vacío */
+.listado-vacio {
+    text-align: center;
+    padding: 40px 0;
+    color: #718096;
+    font-size: 18px;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-cancelar {
+    /* Estructura y Fuente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    
+    /* Colores y Bordes */
+    color: #ffffff;
+    background-color: #dc2626; /* Rojo elegante */
+    border: none;
+    border-radius: 8px;
+    
+    /* Interactividad */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+}
+
+/* Efecto al pasar el mouse */
+.btn-cancelar:hover {
+    background-color: #b91c1c; /* Rojo más oscuro */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+}
+
+/* Efecto al hacer clic */
+.btn-cancelar:active {
+    background-color: #991b1b;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+}
+
+/* Opcional: Un toque de estilo si querés agregar un icono después */
+.btn-cancelar::before {
+    content: '🗑'; /* Icono de tachito de basura */
+    font-size: 16px;
+}
+
+/* Contenedor de los botones */
+.acciones-card {
+    display: flex;       /* Activa el modo flexible */
+    flex-direction: row; /* Los alinea en fila (uno al lado del otro) */
+    gap: 10px;           /* Crea un espacio de 10px entre los botones */
+    margin-top: 15px;    /* Espacio opcional arriba del grupo de botones */
+}
+
+/* Estilo para los botones (ajusta según tu diseño) */
+.acciones-card button {
+    flex: 1;             /* Hace que ambos botones tengan el mismo ancho */
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Diferenciación de colores opcional */
+.btn-editar {
+    background-color: #1a3a8a;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #6e7d88;
+    color: white;
+}
+
+.info {
+    display: flex;          /* Alinea los hijos en fila */
+    flex-wrap: wrap;        /* Permite que bajen si no hay espacio en pantallas chicas */
+    align-items: center;    /* Centra los elementos verticalmente entre sí */
+    gap: 20px;              /* Espacio de separación entre cada dato */
+}
+
+/* Opcional: Para que no se vean pegados o con márgenes raros */
+.info h3, .info p {
+    margin: 0; 
+    white-space: nowrap;    /* Evita que el texto se rompa en dos líneas */
+}
+

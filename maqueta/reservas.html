@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reservas</title>
+    <link rel="stylesheet" href="css/reservas.css">
+</head>
+<body>
+
+    <!-- El contenedor es más ancho para esta pantalla -->
+    <div class="contenedor-reservas">
+        
+        <div class="encabezado-reservas">
+            <div class="titulos">
+                <h1>Mis Reservas</h1>
+                <p>Edita o cancela tus reservas</p>
+            </div>
+            
+            <div class="acciones">
+                <a href="pantallareserva.html" class="btn-volver-azul">← Volver</a>
+                <button class="btn-primary" onclick="window.location.href='login.html'">Cerrar sesión</button>
+            </div>
+        </div>
+
+       <!-- Reemplaza la parte del listado-vacio por esto -->
+    <div id="contenedor-listado">
+        <div class="listado-vacio">
+        <p>Cargando tus reservas...</p>
+        </div>
+    </div>
+
+<!-- AGREGA ESTO justo antes de cerrar el </body> -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="js/reservas.js"></script>
+
+    </div>
+
+</body>
+</html>

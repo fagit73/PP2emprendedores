@@ -1,0 +1,122 @@
+:root {
+    --blue-primary: #1a3a8a;
+    --blue-light: #4a6fa5;
+    --orange-accent: #f97316;
+    --bg-light: #e0e7ff;
+    --lectura: #f87171;
+    --audiovisual: #60a5fa;
+    --extension: #c084fc;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: var(--bg-light);
+}
+
+.container { padding: 2rem; max-width: 1000px; margin: auto; }
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+/* Botones y Cards */
+.btn-primary { background: var(--orange-accent); border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+.btn-primary:hover { background: var(--orange-accent)cc; }
+.btn-secondary { background: var(--blue-light); border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+.btn-secondary:hover { background: var(--orange-accent)cc; }
+.options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+
+.option-card {
+    border: 2px solid var(--blue-light);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.option-card.active {
+    background: var(--blue-primary);
+    color: white;
+    border-color: var(--blue-primary);
+    transform: translateY(-3px);
+}
+
+/* Estilos específicos para el input de la imagen */
+.form-group { margin: 25px 0; }
+.form-input { 
+    width: 100%; 
+    padding: 12px 15px; 
+    border: 2px solid var(--blue-primary); 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    outline: none;
+    font-size: 14px;
+}
+.form-input:focus {
+    box-shadow: 0 0 8px rgba(26, 58, 138, 0.2);
+}
+.form-help {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+/* Tabla */
+.table-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.table-scroll-area { max-height: 500px; overflow-y: auto; }
+
+.schedule-table { width: 100%; border-collapse: collapse; text-align: center; }
+.schedule-table th { position: sticky; top: 0; background: #f8fafc; padding: 15px; z-index: 1; border-bottom: 2px solid #e2e8f0; }
+.schedule-table td { padding: 15px; border: 1px solid #e2e8f0; position: relative; transition: 0.2s; }
+
+.time-col { font-weight: bold; color: var(--blue-primary); background: #f8fafc; }
+
+/* Estados de Reserva */
+.bg-lectura { background-color: var(--lectura) !important; color: white; }
+.bg-audiovisual { background-color: var(--audiovisual) !important; color: white; }
+.bg-extension { background-color: var(--extension) !important; color: white; }
+
+.reserved-text { font-size: 0.7rem; font-weight: bold; display: block; }
+
+.schedule-table td:not(.time-col):hover { background-color: #dbeafe; cursor: pointer; }
+
+/* En styles.css, agregá esto después de .option-card.active */
+
+.option-card[data-type="lectura"] {
+    border-color: var(--lectura);
+    color: var(--lectura);
+    background-color: #fff0f0;
+}
+
+.option-card[data-type="audiovisual"] {
+    border-color: var(--audiovisual);
+    color: var(--audiovisual);
+    background-color: #f0f6ff;
+}
+
+.option-card[data-type="extension"] {
+    border-color: var(--extension);
+    color: var(--extension);
+    background-color: #faf0ff;
+}
+
+/* Contenedor del input de motivo */
+.form-group {
+    border: 2px solid var(--blue-dark);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    background-color: #f0f4ff;
+}
+
+.form-group label h3 {
+    color: var(--blue-dark);
+    margin: 0 0 12px 0;
+}
+
+.option-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-normal);
+}

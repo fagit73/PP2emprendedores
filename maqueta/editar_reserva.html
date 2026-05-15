@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Reserva</title>
+    <link rel="stylesheet" href="css/editar_reserva.css">
+    <!-- Primero la librería de SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+    
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="title-section">
+                <h1>Editar Reserva</h1>
+                <p>Modifica el horario o propósito de tu reserva</p>
+            </div>
+            <button class="btn-volver" onclick="window.history.back()">← Volver</button>
+        </div>
+
+        <!-- SECCIÓN CORREGIDA: Reserva Actual -->
+        <div class="card current-info">
+            <h3>Reserva Actual</h3>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Día</span>
+                    <span class="value" id="current-dia"></span> 
+                </div>
+                <div class="col">
+                    <span class="label">Horario</span>
+                    <span class="value" id="current-horario"></span> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Propósito</span>
+                    <span class="value" id="current-motivo"></span> 
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Selecciona Nuevo Horario</h3>
+            
+            <div class="input-group">
+                <label>Día</label>
+                <select id="select-dia">
+                    <option value="">Selecciona un día</option>
+                    <option value="Lunes">Lunes</option>
+                    <option value="Martes">Martes</option>
+                    <option value="Miércoles">Miércoles</option>
+                    <option value="Jueves">Jueves</option>
+                    <option value="Viernes">Viernes</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Horario</label>
+                <select id="select-horario">
+                    <option value="">Selecciona un horario</option>
+                    <option value="7:30 - 8:30">7:30 - 8:30</option>
+                    <option value="8:30 - 9:30">8:30 - 9:30</option>
+                    <option value="9:40 - 10:40">9:40 - 10:40</option>
+                    <option value="10:50 - 11:50">10:50 - 11:50</option>
+                    <option value="11:50 - 12:30">11:50 - 12:30</option>
+                    <option value="13:00 - 14:00">13:00 - 14:00</option>
+                    <option value="15:10 - 16:10">15:10 - 16:10</option>
+                    <option value="16:20 - 17:20">16:20 - 17:20</option>
+                    <option value="17:20 - 18:20">17:20 - 18:20</option>
+                    <option value="18:20 - 19:20">18:20 - 19:20</option>
+                    <option value="19:30 - 20:30">19:30 - 20:30</option>
+                    <option value="20:30 - 21:30">20:30 - 21:30</option>
+                    <option value="21:30 - 22:30">21:30 - 22:30</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card edit-purpose">
+            <h3>Editar Propósito</h3>
+            <input type="text" id="input-motivo" placeholder="Escribe el propósito..." value="">
+        </div>
+
+        <div class="actions">
+            <button class="btn-save" id="btn-guardar">✓ Guardar Cambios</button>
+            <button class="btn-cancel" id="btn-cancelar-reserva">✕ Cancelar Reserva</button>
+        </div>
+    </div>
+
+    <!-- Asegúrate de llamar a tu JS aquí -->
+    <script src="js/editar_reserva.js"></script>
+    <script src="js/reservas.js"></script>
+</body>
+</html>
