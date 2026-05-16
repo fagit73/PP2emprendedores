@@ -24,16 +24,16 @@
 
         <?php endif; ?>
 
-        <form id="loginForm" action="<?php echo URLAPP; ?>/auth/verificar" method="POST">
+        <form action="<?= URLAPP ?>/auth/verificar" method="POST">
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+                <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required>
                 <span class="error-message" id="emailError"></span>
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="........" required>
+                <input type="password" id="password" name="password" placeholder="**********" required>
                 <span class="error-message" id="passwordError"></span>
             </div>
 

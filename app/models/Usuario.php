@@ -13,16 +13,17 @@ class Usuario
     // Buscar usuario por email
     public function buscarUsuarioPorEmail($email)
     {
-        // 1. Escribimos la consulta con un marcador (:email)
-        $this->db->query("SELECT * FROM usuarios WHERE email = :email");
+        $this->db->query("
+        SELECT u.*, r.nombre_rol
+        FROM usuarios u
+        INNER JOIN roles r ON u.id_rol = r.id_rol
+        WHERE u.email_institucional = :email
+        AND u.activo = 1
+    ");
 
-        // 2. Vinculamos el marcador con el valor real
         $this->db->bind(':email', $email);
 
-        // 3. Obtenemos el resultado
-        $usuario = $this->db->registro();
-
-        return $usuario; // Devuelve el objeto con id, nombre, password, etc.
+        return $this->db->registro();
     }
 
 

@@ -3,7 +3,8 @@
 class DashboardController extends Controller {
 
     public function index() {
-        if(!isset($_SESSION['user_id'])){
+
+        if(!isset($_SESSION['id_usuario'])){
             header('Location: ' . URLAPP . '/auth/login');
             exit;
         }
