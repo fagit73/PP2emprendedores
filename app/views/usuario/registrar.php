@@ -17,24 +17,24 @@
             <p>Completa los datos</p>
         </header>
 
-        <form id="registroForm">
+        <form id="registroForm" action="<?= URLAPP ?>/usuario/registrar" method="POST">
             <label class="required-label">Nombre completo</label>
-            <input type="text" placeholder="Tu nombre completo" required>
+            <input name="nombre_completo" type="text" placeholder="Tu nombre completo" required>
 
             <label class="required-label">DNI</label>
-            <input type="text" placeholder="12345678" required>
+            <input name="dni" type="text" placeholder="12345678" required>
 
             <label class="required-label">Celular</label>
-            <input type="text" placeholder="+54 9 11 1234-5678" required>
+            <input name="celular" type="text" placeholder="+54 9 11 1234-5678" required>
 
             <label class="required-label">Email institucional</label>
-            <input type="email" placeholder="usuario@institucion.edu" required>
+            <input name="email_institucional" type="email" placeholder="usuario@institucion.edu" required>
 
             <label class="required-label">Email de recuperación</label>
-            <input type="email" placeholder="tu@correo.com" required>
+            <input name="email_recuperacion" type="email" placeholder="tu@correo.com" required>
 
             <label class="required-label">Contraseña</label>
-            <input type="password" placeholder="********" required>
+            <input name="password" type="password" placeholder="********" required>
 
             <button type="submit" class="btn-registro">Registrarse</button>
         </form>

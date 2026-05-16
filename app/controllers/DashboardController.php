@@ -10,6 +10,6 @@ class DashboardController extends Controller {
         }
 
         $datos = ['titulo' => 'Panel de Control'];
-        $this->view('dashboard/inicio', $datos);
+        $this->view('dashboard/index', $datos);
     }
 }

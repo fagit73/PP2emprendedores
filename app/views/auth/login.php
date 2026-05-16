@@ -14,13 +14,13 @@
         <h1 class="login-title">Inicia sesión</h1>
         <p class="login-subtitle">Accede a tu cuenta</p>
 
-        <?php if (isset($datos['error'])) : ?>
+        <?php if (isset($_SESSION['error'])) : ?>
 
             <div class="alert alert-danger">
-                <?= $datos['error']; ?>
+                <?= htmlspecialchars($_SESSION['error']); ?>
             </div>
 
-            <?php unset($datos['error']); ?>
+            <?php unset($_SESSION['error']); ?>
 
         <?php endif; ?>
 

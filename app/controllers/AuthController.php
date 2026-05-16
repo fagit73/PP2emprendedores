@@ -6,8 +6,9 @@ class AuthController extends Controller
     public function login()
     {
         // si el usuario ya esta logueado, se manda al dashboard
-        if ((isset($_SESSION['user_id']))) {
-            header('Location: /dashboard');
+        if (isset($_SESSION['id_usuario'])) {
+            header('Location: ' . URLAPP . '/dashboard/index');
+            exit;
         }
         $this->view('auth/login');
     }
@@ -38,18 +39,19 @@ class AuthController extends Controller
                     $_SESSION['nombre'] = $usuario->nombre_completo;
                     $_SESSION['rol'] = $usuario->nombre_rol;
 
-                    header('Location: ' . URLAPP . '/dashboard');
+                    header('Location: ' . URLAPP . '/dashboard/index');
                     exit;
                 } else {
 
-                    $datos= ['error' => 'Contraseña incorrecta'];
+                    $_SESSION['error'] = 'Contraseña incorrecta';
 
-                    $this->view('auth/login', $datos);
+                    header('Location: ' . URLAPP . '/auth/login');
                     exit;
                 }
             } else {
-                $datos= ['error' => 'Usuario no encontrado'];
-                $this->view('auth/login', $datos);
+                $_SESSION['error'] = 'Usuario no encontrado';
+
+                header('Location: ' . URLAPP . '/auth/login');
                 exit;
             }
         }

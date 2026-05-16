@@ -1,31 +1,46 @@
 <?php
+
 class UsuarioController extends Controller
 {
-
     public function registrar()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Tomamos los datos del formulario
+
             $datos = [
-                'nombre' => trim($_POST['nombre']),
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
+
+                'nombre_completo' => trim($_POST['nombre_completo']),
+                'dni' => trim($_POST['dni']),
+                'celular' => trim($_POST['celular']),
+                'email_institucional' => trim($_POST['email_institucional']),
+                'email_recuperacion' => trim($_POST['email_recuperacion']),
+                'password_hash' => password_hash(
+                    trim($_POST['password']),
+                    PASSWORD_DEFAULT
+                ),
+
+                // Rol por defecto
+                'id_rol' => 3
             ];
 
-            // ENCRIPTAR CONTRASEÑA (Vital para sistemas reales)
-            $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
-
-            // Llamar al modelo
             $usuarioModelo = $this->model('Usuario');
 
             if ($usuarioModelo->registrar($datos)) {
-                // Redirigir al login usando la constante de config
+
+                $_SESSION['success'] = 'Cuenta creada correctamente';
+
                 header('Location: ' . URLAPP . '/auth/login');
+                exit;
+
             } else {
-                die('Algo salió mal');
+
+                $_SESSION['error'] = 'Error al registrar usuario';
+
+                header('Location: ' . URLAPP . '/usuario/registrar');
+                exit;
             }
+
         } else {
-            // Si no es POST, mostrar la vista del formulario
+
             $this->view('usuario/registrar');
         }
     }

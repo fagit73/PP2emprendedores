@@ -10,6 +10,13 @@ class Usuario
         $this->db = new Database();
     }
 
+    public function registro()
+    {
+        $this->stmt->execute();
+
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     // Buscar usuario por email
     public function buscarUsuarioPorEmail($email)
     {
@@ -29,17 +36,38 @@ class Usuario
 
     public function registrar($datos)
     {
-        $this->db->query("INSERT INTO usuarios (nombre, email, password) VALUES (:nombre, :email, :password)");
+        $this->db->query("
+        INSERT INTO usuarios (
+            nombre_completo,
+            dni,
+            celular,
+            email_institucional,
+            email_recuperacion,
+            password_hash,
+            id_rol,
+            activo
+        )
+        VALUES (
+            :nombre_completo,
+            :dni,
+            :celular,
+            :email_institucional,
+            :email_recuperacion,
+            :password_hash,
+            :id_rol,
+            :activo
+        )
+    ");
 
-        // Vinculamos los datos
-        $this->db->bind(':nombre', $datos['nombre']);
-        $this->db->bind(':email', $datos['email']);
-        $this->db->bind(':password', $datos['password']); // Ya viene encriptada del controlador
+        $this->db->bind(':nombre_completo', $datos['nombre_completo']);
+        $this->db->bind(':dni', $datos['dni']);
+        $this->db->bind(':celular', $datos['celular']);
+        $this->db->bind(':email_institucional', $datos['email_institucional']);
+        $this->db->bind(':email_recuperacion', $datos['email_recuperacion']);
+        $this->db->bind(':password_hash', $datos['password_hash']);
+        $this->db->bind(':id_rol', $datos['id_rol']);
+        $this->db->bind(':activo', 1);
 
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->db->execute();
     }
 }
