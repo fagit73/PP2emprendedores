@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicia Sesión - Turnera</title>
     <link rel="stylesheet" href="<?= URLAPP ?>/public/css/login.css">
-  
+
 </head>
+
 <body class="login-page">
     <main class="login-card">
         <h1 class="login-title">Inicia sesión</h1>
         <p class="login-subtitle">Accede a tu cuenta</p>
+
+        <?php if (isset($datos['error'])) : ?>
+
+            <div class="alert alert-danger">
+                <?= $datos['error']; ?>
+            </div>
+
+            <?php unset($datos['error']); ?>
+
+        <?php endif; ?>
 
         <form id="loginForm" action="<?php echo URLAPP; ?>/auth/verificar" method="POST">
             <div class="form-group">
@@ -35,4 +47,5 @@
     </main>
 
 </body>
+
 </html>
