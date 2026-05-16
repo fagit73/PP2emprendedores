@@ -1,0 +1,162 @@
+/* --- CONFIGURACIÓN GLOBAL --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #2c3e94 0%, #6f8df5 100%);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.contenedor {
+    background: #f5f5f5;
+    width: 370px;
+    padding: 45px 35px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 
+        0px 25px 50px rgba(0,0,0,0.25),
+        0px 10px 20px rgba(0,0,0,0.15);
+    animation: aparecer 0.6s ease;
+}
+
+/* --- TEXTOS --- */
+h1 {
+    color: #2c3e94;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+p {
+    color: #8a8a8a;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* --- FORMULARIO --- */
+label {
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    color: #2c3e94;
+    margin-bottom: 5px;
+    margin-top: 12px;
+    font-weight: 500;
+}
+
+.required-recuperar::after {
+    content: " *";
+    color: #f53d3d;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    border-color: #6f8df5;
+    box-shadow: 0 0 0 3px rgba(111,141,245,0.2);
+}
+
+/* --- BOTONES Y LINKS --- */
+button[type="submit"] {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 600;
+    margin-top: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.btn-naranja {
+    background: #f5a100;
+    color: white;
+}
+
+.btn-naranja:hover {
+    background: #d88c00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 161, 0, 0.3);
+}
+
+.link, .link-azul {
+    display: block;
+    margin-top: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #2c3e94;
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+.link:hover, .link-azul:hover, .link-volver:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+/* --- ESTILOS DE LA VISTA DE ÉXITO (NUEVO) --- */
+
+.link-volver {
+    display: inline-block;
+    margin: 15px 0;
+    color: #2c3e94;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.alerta-mensaje-verde {
+    margin-top: 25px;
+    padding: 20px;
+    border: 2px solid #2ecc71; /* El verde de tu imagen */
+    background-color: #ebfaf2; /* Fondo sutil */
+    border-radius: 15px;
+    color: #2ecc71;
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Clases para el control de JavaScript */
+.fade-in {
+    animation: aparecerRebote 0.5s ease forwards;
+}
+
+/* --- ANIMACIONES --- */
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(30px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes aparecerRebote {
+    0% { opacity: 0; transform: scale(0.9) translateY(-20px); }
+    70% { transform: scale(1.05) translateY(5px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes desaparecerSuave {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}

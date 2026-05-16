@@ -29,7 +29,7 @@
         </form>
 
         <div class="login-footer">
-            <a href="recuperar.html" class="link-secondary">¿Olvidaste tu contraseña?</a>
+            <a href="<?= URLAPP ?>/auth/recuperar" class="link-secondary">¿Olvidaste tu contraseña?</a>
             <a href="registro.html" class="link-accent">Crear nueva cuenta</a>
         </div>
     </main>
