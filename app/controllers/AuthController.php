@@ -5,7 +5,6 @@ class AuthController extends Controller
 
     public function login()
     {
-        echo 'metodo login';
         // si el usuario ya esta logueado, se manda al dashboard
         if ((isset($_SESSION['user_id']))) {
             header('Location: /dashboard');
@@ -13,7 +12,10 @@ class AuthController extends Controller
         $this->view('auth/login');
     }
 
-
+    public function recuperar()
+    {
+        $this->view('auth/recuperar');
+    }
 
     public function verificar()
     {
