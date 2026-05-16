@@ -38,10 +38,12 @@ class AuthController extends Controller
 
                     header('Location: ' . URLAPP . '/dashboard/index');
                 } else {
-                    echo 'Contraseña incorrecta';
+                    $datos= ['error' => 'Contraseña incorrecta'];
+                    $this->view('auth/login', $datos);
                 }
             } else {
-                echo 'El correo electrónico no está registrado';
+                $datos= ['error' => 'El correo electrónico no está registrado'];
+                $this->view('auth/login', $datos);
             }
         }
     }
