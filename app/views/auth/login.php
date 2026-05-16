@@ -30,10 +30,9 @@
 
         <div class="login-footer">
             <a href="<?= URLAPP ?>/auth/recuperar" class="link-secondary">¿Olvidaste tu contraseña?</a>
-            <a href="registro.html" class="link-accent">Crear nueva cuenta</a>
+            <a href="<?= URLAPP ?>/usuario/registrar" class="link-accent">Crear nueva cuenta</a>
         </div>
     </main>
 
-    <script src="js/login.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-class UsuariosController extends Controller
+class UsuarioController extends Controller
 {
 
     public function registrar()
@@ -26,7 +26,7 @@ class UsuariosController extends Controller
             }
         } else {
             // Si no es POST, mostrar la vista del formulario
-            $this->view('usuarios/registrar');
+            $this->view('usuario/registrar');
         }
     }
 }
