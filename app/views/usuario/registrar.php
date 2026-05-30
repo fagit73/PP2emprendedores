@@ -10,7 +10,6 @@
 
 <div class="contenedor">
     
-    <!-- SECCIÓN 1: Formulario de Registro (Se ocultará al enviar) -->
     <div id="pantalla-registro">
         <header>
             <h1>Crear cuenta</h1>
@@ -42,7 +41,7 @@
         <a href="<?= URLAPP ?>/auth/login" class="link link-azul">← Volver al login</a>
     </div>
 
-    <!-- SECCIÓN 2: Vista de Éxito (Se mostrará al enviar) -->
+
     <div id="pantalla-exito-registro" style="display: none;">
         <header>
             <h1>¡Bienvenido!</h1>

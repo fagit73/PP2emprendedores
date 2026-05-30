@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo SITENAME; ?></title>
-    <!-- URLROOT ayuda a que el CSS cargue bien siempre -->
+
     <link rel="stylesheet" href="<?php echo URLAPP; ?>/css/style.css">
 </head>
 <body>

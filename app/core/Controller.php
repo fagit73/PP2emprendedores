@@ -12,7 +12,6 @@ class Controller
     public function view($vista, $datos = [])
     {
         if (file_exists('app/views/' . $vista . '.php')) {
-            // Esto permite usar $titulo en lugar de $datos['titulo']
             extract($datos);
             require_once 'app/views/' . $vista . '.php';
         } else {

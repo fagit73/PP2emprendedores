@@ -13,8 +13,8 @@ class Database {
     public function __construct(){
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = [
-            PDO::ATTR_PERSISTENT => true, // conexion persistente para mayor velocidad
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // que avise si hay errores
+            PDO::ATTR_PERSISTENT => true, 
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
         ];
 
         try {
@@ -25,12 +25,10 @@ class Database {
         }
     }
 
-    // preparacion de consulta para evitar sql injection
     public function query($sql) {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
-    // vinculamos los valores 
     public function bind($param, $valor, $tipo = null) {
         if (is_null($tipo)) {
             if (is_int($valor)) $tipo = PDO::PARAM_INT;
@@ -45,7 +43,6 @@ class Database {
         return $this->stmt->execute();
     }
 
-    // obtener un solo registro
     public function registro() {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);

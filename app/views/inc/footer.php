@@ -1,6 +1,6 @@
-</div> <!-- Cierre del container -->
+</div> 
     <footer>
-        <p>&copy; 2024 - Creado con PHP Nativo</p>
+        <p>&copy; 2024 - Biblioteca IFTS 11</p>
     </footer>
 </body>
 </html>

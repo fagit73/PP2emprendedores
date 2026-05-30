@@ -10,7 +10,6 @@
 
     <div class="contenedor">
         
-        <!-- SECCIÓN 1: Formulario -->
         <div id="pantalla-formulario">
             <header>
                 <h1>Recuperar contraseña</h1>
@@ -34,7 +33,6 @@
             </form>
         </div>
 
-        <!-- SECCIÓN 2: Vista de Éxito -->
         <div id="pantalla-exito" style="display: none;">
             <header>
                 <h1 class="titulo-exito">Recuperar contraseña</h1>

@@ -13,10 +13,7 @@ class UsuarioController extends Controller
                 'celular' => trim($_POST['celular']),
                 'email_institucional' => trim($_POST['email_institucional']),
                 'email_recuperacion' => trim($_POST['email_recuperacion']),
-                'password_hash' => password_hash(
-                    trim($_POST['password']),
-                    PASSWORD_DEFAULT
-                ),
+                'password_hash' => password_hash(trim($_POST['password']),PASSWORD_DEFAULT),
 
                 // Rol por defecto
                 'id_rol' => 3

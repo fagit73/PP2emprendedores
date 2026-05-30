@@ -24,10 +24,8 @@ class Core {
             }
         }
 
-        // Obtener parámetros
         $this->parametros = $url ? array_values($url) : [];
 
-        // LA LÍNEA QUE FALTABA: Ejecutar el método del controlador con los parámetros
         call_user_func_array([$this->controladorActual, $this->metodoActual], $this->parametros);
     }
 
