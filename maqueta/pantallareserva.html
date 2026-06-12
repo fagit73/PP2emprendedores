@@ -28,143 +28,97 @@
                     <button type="button" class="option-card" data-type="extension">🎭 Extensión Cultural</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="motivo"><h3>2. ¿Para qué necesitas el turno?</h3></label>
-                    <input type="text" id="motivo" class="form-input" placeholder="Ej: Proyecto de investigación, Consulta, Trabajo colaborativo...">
-                    <p class="form-help">Cuéntanos brevemente el propósito de tu visita</p>
+                <div class="purpose-selection">
+                    <h3>2. ¿Para qué necesitas el turno?</h3>
+                    <div class="purpose-buttons">
+                        <button id="btnFormulario" class="btn-purpose">Completar formulario</button>
+                        <button id="btnSubirArchivo" class="btn-purpose">Subir Archivo</button>
+                        <button id="btnSaltarPaso" class="btn-purpose">Saltar este paso</button>
+                    </div>
+
+                    <div id="formContainer" class="dynamic-container" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group-item">
+                                <label>Título</label>
+                                <input type="text" id="formTitulo" class="form-input" placeholder="Título del proyecto">
+                            </div>
+                            <!-- CAMBIO: Nuevo campo Docente/Responsable -->
+                            <div class="form-group-item">
+                                <label>Docente/Responsable</label>
+                                <input type="text" id="formDocente" class="form-input" placeholder="Nombre del docente">
+                            </div>
+                            <div class="form-group-item">
+                                <label>Fecha de inicio</label>
+                                <input type="date" id="formFechaInicio" class="form-input">
+                            </div>
+                            <div class="form-group-item">
+                                <label>Fecha de fin</label>
+                                <input type="date" id="formFechaFin" class="form-input">
+                            </div>
+                            <div class="form-group-item full-width">
+                                <label>Descripción general</label>
+                                <textarea id="formDescripcion" class="form-input" rows="3"></textarea>
+                            </div>
+                            <div class="form-group-item">
+                                <label>Evaluación</label>
+                                <input type="text" id="formEvaluacion" class="form-input">
+                            </div>
+                            <!-- CAMBIO: Campo de palabras clave con datalist para autocompletado -->
+                            <div class="form-group-item">
+                                <label>Palabras clave</label>
+                                <input type="text" id="formPalabrasClave" class="form-input" placeholder="Escribe o selecciona..." list="keywordsList">
+                                <datalist id="keywordsList">
+                                    <!-- Se llenará dinámicamente con JS -->
+                                </datalist>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="fileContainer" class="dynamic-container" style="display: none;">
+                        <div class="file-upload-box">
+                            <label for="archivoTurno">Selecciona un archivo (.doc, .pdf):</label>
+                            <!-- CAMBIO: Mejorada la gestión de cambio de archivo -->
+                            <div class="file-input-wrapper">
+                                <input type="file" id="archivoTurno" accept=".doc,.pdf" class="form-input">
+                                <div id="fileStatus" class="file-status-msg" style="display: none; margin-top: 10px; font-size: 0.85rem; color: var(--blue-primary);">
+                                    Archivo seleccionado: <strong id="selectedFileName"></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="table-container">
-                <div class="table-scroll-area">
-                    <table class="schedule-table">
-                        <thead>
-                            <tr>
-                                <th>Horario</th>
-                                <th>Lunes</th>
-                                <th>Martes</th>
-                                <th>Miércoles</th>
-                                <th>Jueves</th>
-                                <th>Viernes</th>
-                            </tr>
-                        </thead>
-                        <tbody id="scheduleBody">
-                            <tr>
-                                <td class="time-col">7:30 - 8:30</td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                            </tr>
-      
-                            <tr>
-                                <td class="time-col">8:30 - 9:30</td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                            </tr>
-                            <tr>
-                                <td class="time-col">9:40 - 10:40</td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                                <td><span class="check">✓</span></td>
-                            </tr>
-                          <tr>
-                    <td class="time-col">10:50 - 11:50</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">11:50 - 12:30</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">13:00 - 14:00</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">14:00 - 15:00</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">15:10 - 16:10</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">16:20 - 17:20</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">17:20 - 18:20</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">18:20 - 19:20</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">19:30 - 20:30</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">20:30 - 21:30</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
-                <tr>
-                    <td class="time-col">21:30 - 22:30</td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                    <td><span class="check">✓</span></td>
-                </tr>
+            <div class="calendar-section">
+                <h3>3. Reserva tu lugar</h3>
+                <div class="booking-layout">
+                    <div class="calendar-panel">
+                        <div id="calendarContainer" class="calendar-container">
+                            <div class="calendar-header">
+                                <button id="prevMonth" class="btn-nav">&lt;</button>
+                                <h4 id="currentMonthYear">Mes Año</h4>
+                                <button id="nextMonth" class="btn-nav">&gt;</button>
+                            </div>
+                            <div class="calendar-days-header">
+                                <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+                            </div>
+                            <div id="calendarDays" class="calendar-days">
+                                <!-- Los días se generarán con JS -->
+                            </div>
+                        </div>
+                    </div>
 
-                            </tbody>
-                    </table>
+                    <div class="time-panel">
+                        <div id="timeSlotsContainer" class="time-slots-container" style="display: none;">
+                            <h4 id="selectedDateText">Selecciona un horario</h4>
+                            <div id="timeSlotsGrid" class="time-slots-grid">
+                                <!-- Los horarios se generarán con JS -->
+                            </div>
+                        </div>
+                        <div id="noDateSelected" class="no-date-msg">
+                            <p>Por favor, selecciona un día en el calendario para ver los horarios disponibles.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

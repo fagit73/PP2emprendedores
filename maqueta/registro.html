@@ -1,86 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Registro</title>
-    <link rel="stylesheet" href="css/registro.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="css/registro.css">
+
 </head>
+
 <body>
 
-<div class="contenedor">
-    
-    <!-- SECCIÓN 1: Formulario de Registro (Se ocultará al enviar) -->
-    <div id="pantalla-registro">
-        <header>
-            <h1>Crear cuenta</h1>
-            <p>Completa los datos</p>
-        </header>
+    <!-- Contenedor principal -->
+    <div class="contenedor">
 
-        <form id="registroForm">
-            <label class="required-label">Nombre completo</label>
-            <input type="text" placeholder="Tu nombre completo" required>
+        <!-- Pantalla formulario -->
+        <div id="pantalla-registro">
 
-            <label class="required-label">DNI</label>
-            <input type="text" placeholder="12345678" required>
+            <header>
 
-            <label class="required-label">Celular</label>
-            <input type="text" placeholder="+54 9 11 1234-5678" required>
+                <h1>Crear cuenta</h1>
 
-            <label class="required-label">Email institucional</label>
-            <input type="email" placeholder="usuario@institucion.edu" required>
+                <p>Completa los datos</p>
 
-            <label class="required-label">Email de recuperación</label>
-            <input type="email" placeholder="tu@correo.com" required>
+            </header>
 
-            <label class="required-label">Contraseña</label>
-            <input type="password" placeholder="********" required>
+            <!-- Formulario -->
+            <form id="registroForm">
 
-            <button type="submit" class="btn-registro">Registrarse</button>
-        </form>
+                <!-- Nombre -->
+                <label class="required-label">
+                    Nombre completo
+                </label>
 
-        <a href="login.html" class="link link-azul">← Volver al login</a>
-    </div>
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Tu nombre completo"
+                    required
+                >
 
-    <!-- SECCIÓN 2: Vista de Éxito (Se mostrará al enviar) -->
-    <div id="pantalla-exito-registro" style="display: none;">
-        <header>
-            <h1>¡Bienvenido!</h1>
-            <p>Tu cuenta ha sido creada</p>
-        </header>
+                <!-- DNI -->
+                <label class="required-label">
+                    DNI
+                </label>
 
-        <a href="login.html" class="link-volver">← Ir al login para ingresar</a>
+                <input
+                    type="text"
+                    id="dni"
+                    placeholder="12345678"
+                    required
+                >
 
-        <div class="alerta-mensaje-verde">
-            <span>✓ Registro completado. Ya podés iniciar sesión.</span>
+                <!-- Celular -->
+                <label class="required-label">
+                    Celular
+                </label>
+
+                <input
+                    type="text"
+                    id="celular"
+                    placeholder="+54 9 11 1234-5678"
+                    required
+                >
+
+                <!-- Email institucional -->
+                <label class="required-label">
+                    Email institucional
+                </label>
+
+                <input
+                    type="email"
+                    id="emailInstitucional"
+                    placeholder="usuario@institucion.edu"
+                    required
+                >
+
+                <!-- Email recuperación -->
+                <label class="required-label">
+                    Email de recuperación
+                </label>
+
+                <input
+                    type="email"
+                    id="emailRecuperacion"
+                    placeholder="tu@correo.com"
+                    required
+                >
+
+                <!-- Password -->
+                <label class="required-label">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="********"
+                    required
+                >
+
+                <!-- Botón -->
+                <button
+                    type="submit"
+                    class="btn-registro"
+                >
+                    Registrarse
+                </button>
+
+            </form>
+
+            <!-- Volver -->
+            <a href="login.html"
+               class="link link-azul">
+
+                ← Volver al login
+
+            </a>
+
         </div>
+
+        <!-- Pantalla éxito -->
+        <div id="pantalla-exito-registro"
+             style="display:none;">
+
+            <header>
+
+                <h1>¡Bienvenido!</h1>
+
+                <p>Tu cuenta ha sido creada</p>
+
+            </header>
+
+            <a href="login.html"
+               class="link-volver">
+
+                ← Ir al login
+
+            </a>
+
+            <div class="alerta-mensaje-verde">
+
+                ✓ Registro completado correctamente
+
+            </div>
+
+        </div>
+
     </div>
 
-</div>
-
-<!-- LÓGICA JAVASCRIPT -->
-<script>
-    const registroForm = document.getElementById('registroForm');
-    const pantallaReg = document.getElementById('pantalla-registro');
-    const pantallaExitoReg = document.getElementById('pantalla-exito-registro');
-
-    registroForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Evita que la página se recargue
-
-        // 1. Intercambio visual de pantallas
-        pantallaReg.style.display = 'none';
-        pantallaExitoReg.style.display = 'block';
-        pantallaExitoReg.classList.add('fade-in');
-
-        // 2. Limpiar el formulario
-        registroForm.reset();
-
-        // 3. Redirección automática al Login tras 3 segundos
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 3000);
-    });
-</script>
+    <!-- JS -->
+    <script src="js/registro.js"></script>
 
 </body>
+
 </html>
+
+
+
+
+

@@ -34,13 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         `;
 
+        // CAMBIO AQUÍ: Ahora muestra el día y la fecha manual si existe
+        const fechaTexto = reserva.fecha ? ` - ${reserva.fecha}` : '';
+
         card.innerHTML = `
             <div>
                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
                     <span style="font-size:11px; font-weight:600; background:${colorFondo[tipo] || '#f1f5f9'}; color:${colorTexto[tipo] || '#475569'}; border-radius:6px; padding:2px 10px; text-transform: uppercase;">
                         ${reserva.tipo}
                     </span>
-                    <span style="font-size:13px; color:#64748b; font-weight:500;">${reserva.dia}</span>
+                    <span style="font-size:13px; color:#64748b; font-weight:500;">${reserva.dia}${fechaTexto}</span>
                 </div>
                 <div style="display:flex; gap:20px;">
                     <span style="font-size:13px; color:#475569;">Horario: <strong>${reserva.horario}</strong></span>

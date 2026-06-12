@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Reserva</title>
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/editar_reserva.css">
-    <!-- Primero la librería de SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
-    
 </head>
 <body>
 
@@ -21,7 +19,6 @@
             <button class="btn-volver" onclick="window.history.back()">← Volver</button>
         </div>
 
-        <!-- SECCIÓN CORREGIDA: Reserva Actual -->
         <div class="card current-info">
             <h3>Reserva Actual</h3>
             <div class="row">
@@ -33,64 +30,99 @@
                     <span class="label">Horario</span>
                     <span class="value" id="current-horario"></span> 
                 </div>
+                <div class="col">
+                    <span class="label">Fecha</span>
+                    <span class="value" id="current-fecha"></span> 
+                </div>
             </div>
             <div class="row">
                 <div class="col">
                     <span class="label">Propósito</span>
                     <span class="value" id="current-motivo"></span> 
                 </div>
+                <!-- CAMBIO: Mostrar Docente si existe -->
+                <div class="col" id="current-docente-wrapper" style="display:none;">
+                    <span class="label">Docente/Responsable</span>
+                    <span class="value" id="current-docente"></span> 
+                </div>
             </div>
         </div>
 
         <div class="form-section">
-            <h3>Selecciona Nuevo Horario</h3>
+            <h3>Selecciona Nuevo Horario y Fecha</h3>
             
-            <div class="input-group">
-                <label>Día</label>
-                <select id="select-dia">
-                    <option value="">Selecciona un día</option>
-                    <option value="Lunes">Lunes</option>
-                    <option value="Martes">Martes</option>
-                    <option value="Miércoles">Miércoles</option>
-                    <option value="Jueves">Jueves</option>
-                    <option value="Viernes">Viernes</option>
-                </select>
-            </div>
+            <div class="booking-layout">
+                <div class="calendar-panel">
+                    <div id="calendarContainer" class="calendar-container">
+                        <div class="calendar-header">
+                            <button id="prevMonth" class="btn-nav">&lt;</button>
+                            <h4 id="currentMonthYear">Mes Año</h4>
+                            <button id="nextMonth" class="btn-nav">&gt;</button>
+                        </div>
+                        <div class="calendar-days-header">
+                            <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+                        </div>
+                        <div id="calendarDays" class="calendar-days">
+                            <!-- Los días se generarán con JS -->
+                        </div>
+                    </div>
+                </div>
 
-            <div class="input-group">
-                <label>Horario</label>
-                <select id="select-horario">
-                    <option value="">Selecciona un horario</option>
-                    <option value="7:30 - 8:30">7:30 - 8:30</option>
-                    <option value="8:30 - 9:30">8:30 - 9:30</option>
-                    <option value="9:40 - 10:40">9:40 - 10:40</option>
-                    <option value="10:50 - 11:50">10:50 - 11:50</option>
-                    <option value="11:50 - 12:30">11:50 - 12:30</option>
-                    <option value="13:00 - 14:00">13:00 - 14:00</option>
-                    <option value="15:10 - 16:10">15:10 - 16:10</option>
-                    <option value="16:20 - 17:20">16:20 - 17:20</option>
-                    <option value="17:20 - 18:20">17:20 - 18:20</option>
-                    <option value="18:20 - 19:20">18:20 - 19:20</option>
-                    <option value="19:30 - 20:30">19:30 - 20:30</option>
-                    <option value="20:30 - 21:30">20:30 - 21:30</option>
-                    <option value="21:30 - 22:30">21:30 - 22:30</option>
-                </select>
+                <div class="time-panel">
+                    <div id="timeSlotsContainer" class="time-slots-container" style="display: none;">
+                        <h4 id="selectedDateText">Selecciona un horario</h4>
+                        <div id="timeSlotsGrid" class="time-slots-grid">
+                            <!-- Los horarios se generarán con JS -->
+                        </div>
+                    </div>
+                    <div id="noDateSelected" class="no-date-msg">
+                        <p>Selecciona un día para cambiar la fecha y el horario.</p>
+                    </div>
+                </div>
             </div>
+            
+            <input type="hidden" id="input-fecha">
+            <input type="hidden" id="select-horario">
+            <input type="hidden" id="select-dia">
         </div>
 
         <div class="card edit-purpose">
-            <h3>Editar Propósito</h3>
-            <input type="text" id="input-motivo" placeholder="Escribe el propósito..." value="">
+            <h3>Editar Detalles</h3>
+            
+            <!-- CAMBIO: Campos adicionales en edición si es modo formulario -->
+            <div id="editFormFields" style="display: none; margin-bottom: 20px;">
+                <div class="input-group">
+                    <label>Docente/Responsable</label>
+                    <input type="text" id="editDocente" class="form-input">
+                </div>
+                <div class="input-group">
+                    <label>Palabras clave</label>
+                    <input type="text" id="editPalabrasClave" class="form-input" list="keywordsList">
+                    <datalist id="keywordsList"></datalist>
+                </div>
+            </div>
+
+            <!-- CAMBIO: Gestión de cambio de archivo en edición -->
+            <div id="editFileFields" style="display: none; margin-bottom: 20px;">
+                <div class="input-group">
+                    <label>Cambiar Archivo (.doc, .pdf)</label>
+                    <input type="file" id="editArchivo" accept=".doc,.pdf" class="form-input">
+                    <p id="editFileStatus" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;"></p>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label id="labelMotivo">Motivo / Título</label>
+                <input type="text" id="input-motivo" placeholder="Escribe el propósito..." value="">
+            </div>
         </div>
 
         <div class="actions">
             <button class="btn-save" id="btn-guardar">✓ Guardar Cambios</button>
-            <button class="btn-cancel" id="btn-cancelar-reserva">✕ Cancelar Reserva</button>
+            <button class="btn-cancel" id="btn-cancelar-reserva">✕ Eliminar Reserva</button>
         </div>
     </div>
-
-    <!-- Asegúrate de llamar a tu JS aquí -->
+     
     <script src="js/editar_reserva.js"></script>
-    <script src="js/reservas.js"></script>
 </body>
 </html>

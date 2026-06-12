@@ -160,3 +160,19 @@ button[type="submit"] {
     from { opacity: 1; transform: translateY(0); }
     to { opacity: 0; transform: translateY(-20px); }
 }
+
+.btn-volver-azul {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el texto y la flecha horizontalmente */
+    
+    /* Nueva propiedad para separar el botón */
+    margin-top: 16px;        /* Puedes subir o bajar este número (ej. 20px) según el espacio que quieras */
+}

@@ -146,3 +146,183 @@ select, input[type="text"] {
     opacity: 0.9;
 }
 
+:root {
+    --primary-blue: #1a3a8a; /* Azul del título y bordes */
+    --bg-light: #f8fafd;
+    --border-color: #cbd5e1;
+    --success-green: #2ecc71;
+    --danger-red: #ef4444;
+    --text-muted: #64748b;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #334155;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 850px;
+    padding: 20px;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--primary-blue);
+    font-size: 32px;
+    margin: 0;
+    font-weight: 800;
+}
+
+.header p {
+    color: var(--text-muted);
+    margin: 5px 0 0 0;
+}
+
+.btn-volver {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-volver:hover {
+    background-color: #122962;
+}
+
+.btn-volver:active {
+    transform: scale(0.98);
+}
+
+/* Tarjetas y Secciones */
+.card, .form-section {
+    border: 2px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+    color: var(--primary-blue);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Detalles de Reserva Actual (Optimizado para 3 columnas) */
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Evita que se rompa en pantallas chicas */
+    gap: 40px;      /* Espaciado perfecto y prolijo para las 3 columnas actuales */
+    margin-bottom: 15px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px; /* Asegura un ancho mínimo para cada dato */
+}
+
+.label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.value {
+    font-size: 18px;
+    color: var(--primary-blue);
+    font-weight: bold;
+}
+
+/* Formulario e Inputs */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--primary-blue);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Aplica de forma nativa e idéntica tanto a selectores como al nuevo input de fecha */
+select, input[type="text"] {
+    width: 100%;
+    padding: 14px; /* Un poquitito más de aire interno */
+    border: 2px solid var(--primary-blue);
+    border-radius: 10px;
+    background-color: #eef2f7;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Efecto visual premium cuando el usuario hace clic para escribir la fecha o motivo */
+select:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6; /* Cambio sutil a azul foco */
+    background-color: #ffffff;
+}
+
+/* Botones de acción inferior */
+.actions {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-save, .btn-cancel {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.btn-save {
+    background-color: var(--success-green);
+}
+
+.btn-cancel {
+    background-color: var(--danger-red);
+}
+
+.btn-save:hover, .btn-cancel:hover {
+    opacity: 0.9;
+}
+
+.btn-save:active, .btn-cancel:active {
+    transform: scale(0.99); /* Efecto hundido al hacer clic */
+}

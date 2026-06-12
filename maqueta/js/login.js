@@ -1,53 +1,128 @@
+// Espera carga completa del DOM
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Elementos HTML
     const loginForm = document.getElementById('loginForm');
+
     const emailInput = document.getElementById('email');
+
     const passwordInput = document.getElementById('password');
 
+    // Verifica formulario
+    if (!loginForm) {
+
+        console.error('Formulario no encontrado');
+
+        return;
+    }
+
+    // Evento submit
     loginForm.addEventListener('submit', (e) => {
+
+        // Evita recarga
         e.preventDefault();
+
+        // Estado validación
         let isValid = true;
 
-        // Limpiar errores previos
+        // Limpia errores
         clearErrors();
 
-        // 1. Validar Email Obligatorio y Formato
+        // Validación email vacío
         if (!emailInput.value.trim()) {
-            showError('emailError', 'El correo electrónico es obligatorio');
+
+            showError(
+                'emailError',
+                'El correo electrónico es obligatorio'
+            );
+
             emailInput.classList.add('invalid');
-            isValid = false;
-        } else if (!validateEmail(emailInput.value)) {
-            showError('emailError', 'Formato incorrecto (falta el @ o dominio)');
-            emailInput.classList.add('invalid');
+
             isValid = false;
         }
 
-        // 2. Validar Contraseña Obligatoria
+        // Validación formato email
+        else if (!validateEmail(emailInput.value)) {
+
+            showError(
+                'emailError',
+                'Formato incorrecto'
+            );
+
+            emailInput.classList.add('invalid');
+
+            isValid = false;
+        }
+
+        // Validación password
         if (!passwordInput.value.trim()) {
-            showError('passwordError', 'La contraseña es obligatoria');
+
+            showError(
+                'passwordError',
+                'La contraseña es obligatoria'
+            );
+
             passwordInput.classList.add('invalid');
+
             isValid = false;
         }
 
-        // 3. Redirección si todo es correcto
+        // Login correcto
         if (isValid) {
-            console.log("Datos válidos. Redirigiendo...");
-            // Aquí simularíamos la petición al servidor
-            window.location.href = 'pantallareserva.html'; // Redirige a la pantalla principal
+
+            console.log('Login exitoso');
+
+            // Redirección
+            window.location.href =
+                'pantallareserva.html';
         }
     });
 
-    // Función de ayuda para validar formato de mail con Regex
+    // Validación regex email
     function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const re =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         return re.test(email);
     }
 
-    function showError(elementId, message) {
-        document.getElementById(elementId).innerText = message;
+    // Mostrar errores
+    function showError(id, message) {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+
+            element.innerText = message;
+        }
     }
 
+    // Limpiar errores
     function clearErrors() {
-        document.querySelectorAll('.error-message').forEach(el => el.innerText = '');
-        document.querySelectorAll('input').forEach(input => input.classList.remove('invalid'));
+
+        document
+            .querySelectorAll('.error-message')
+            .forEach(el => {
+
+                el.innerText = '';
+            });
+
+        document
+            .querySelectorAll('input')
+            .forEach(input => {
+
+                input.classList.remove('invalid');
+            });
     }
+
 });
+
+
+
+
+
+
+
+

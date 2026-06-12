@@ -1,155 +1,192 @@
-/* --- CONFIGURACIÓN GLOBAL --- */
+/* Fuente */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+/* Reset */
+
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
 }
 
+/* Body */
+
 body {
+
     height: 100vh;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #2c3e94 0%, #6f8df5 100%);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2c3e94 0%,
+            #6f8df5 100%
+        );
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
+/* Contenedor */
+
 .contenedor {
-    background: #f5f5f5;
-    width: 370px;
-    padding: 45px 35px;
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 
-        0px 25px 50px rgba(0,0,0,0.25),
-        0px 10px 20px rgba(0,0,0,0.15);
-    animation: aparecer 0.6s ease;
+
+    background: #ffffff;
+
+    width: 400px;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.2);
 }
 
-/* --- TEXTOS --- */
+/* Títulos */
+
 h1 {
+
     color: #2c3e94;
+
+    margin-bottom: 10px;
+
     font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 6px;
 }
 
 p {
-    color: #8a8a8a;
-    margin-bottom: 25px;
-    font-size: 14px;
+
+    color: #64748b;
+
+    margin-bottom: 20px;
 }
 
-/* --- FORMULARIO Y INPUTS --- */
+/* Labels */
+
 label {
+
     display: block;
-    text-align: left;
-    font-size: 13px;
-    color: #2c3e94;
+
+    margin-top: 15px;
+
     margin-bottom: 5px;
-    margin-top: 12px;
-    font-weight: 500;
+
+    color: #1e3a8a;
+
+    font-weight: 600;
 }
+
+/* Required */
 
 .required-label::after {
+
     content: " *";
-    color: #f53d3d;
-    font-weight: bold;
+
+    color: red;
 }
 
+/* Inputs */
+
 input {
+
     width: 100%;
+
     padding: 12px;
-    border-radius: 12px;
-    border: 2px solid #e0e0e0;
-    font-size: 14px;
+
+    border-radius: 10px;
+
+    border: 2px solid #dbeafe;
+
     outline: none;
-    transition: all 0.2s ease;
 }
 
 input:focus {
-    border-color: #6f8df5;
-    box-shadow: 0 0 0 3px rgba(111,141,245,0.2);
+
+    border-color: #2563eb;
 }
 
-/* --- BOTONES --- */
-button {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 14px;
-    font-weight: 600;
-    margin-top: 18px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: all 0.2s ease;
-}
+/* Botón */
 
 .btn-registro {
-    background: #f5a100; /* Naranja para resaltar */
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #f59e0b;
+
     color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
 }
 
 .btn-registro:hover {
-    background: #d88c00;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(245, 161, 0, 0.3);
+
+    background: #d97706;
 }
 
-/* --- LINKS --- */
-.link {
-    display: block;
-    margin-top: 20px;
-    font-size: 13px;
-    text-decoration: none;
-    color: #2c3e94;
-    font-weight: 500;
-}
+/* Links */
 
-.link:hover {
-    text-decoration: underline;
-}
-
-/* --- VISTA DE ÉXITO (Estilo imagen.png) --- */
-
+.link,
 .link-volver {
+
     display: inline-block;
-    margin: 15px 0;
-    color: #2c3e94;
+
+    margin-top: 20px;
+
+    color: #1d4ed8;
+
     text-decoration: none;
+
     font-weight: 600;
-    font-size: 14px;
 }
+
+/* Alert éxito */
 
 .alerta-mensaje-verde {
+
     margin-top: 25px;
-    padding: 20px;
-    border: 2px solid #2ecc71; /* Verde esmeralda */
-    background-color: #ebfaf2;
-    border-radius: 15px;
-    color: #2ecc71;
-    font-weight: 600;
-    font-size: 15px;
+
+    background: #ecfdf5;
+
+    border: 2px solid #10b981;
+
+    color: #10b981;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
     text-align: center;
-    line-height: 1.4;
+
+    font-weight: bold;
 }
 
-/* --- ANIMACIONES --- */
 
-.fade-in {
-    animation: aparecerRebote 0.5s ease forwards;
-}
 
-@keyframes aparecer {
-    from { opacity: 0; transform: translateY(30px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
 
-@keyframes aparecerRebote {
-    0% { opacity: 0; transform: scale(0.9) translateY(-20px); }
-    70% { transform: scale(1.05) translateY(5px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
+
+
+
+
+
+
+
