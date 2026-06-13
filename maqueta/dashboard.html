@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard Biblioteca</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #eef2ff;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar-custom {
+            background: #1d428a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            opacity: .8;
+        }
+
+        .nav-link.active {
+            border-bottom: 3px solid white;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1d428a;
+            color: white;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .menu li:hover,
+        .menu .active {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .user-box {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .kpi-card {
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        .kpi-card i {
+            font-size: 30px;
+            color: #1d428a;
+            margin-bottom: 10px;
+        }
+
+        .kpi-card h3 {
+            font-weight: bold;
+        }
+
+        .dashboard-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        .card-header {
+            background: #1d428a;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+    <link href="dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand fw-bold" href="#">
+                    📚 Biblioteca Escolar
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+
+                    <ul class="navbar-nav me-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Reservar
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Mis Reservas
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Reportes
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Usuarios
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <span class="text-white">
+                            👤 Administrador
+                        </span>
+
+                        <button class="btn btn-warning btn-sm">
+                            Cerrar sesión
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <!-- Main -->
+        <main class="main-content">
+
+            <div class="topbar">
+
+                <h2>Dashboard General</h2>
+
+                <div class="user-box">
+                    <span>Administrador</span>
+                    <button class="btn btn-danger btn-sm">
+                        Cerrar sesión
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- KPIs -->
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-3">
+                    <div class="card kpi-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3 id="reservasMes">152</h3>
+                        <span>Reservas del Mes</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card kpi-card">
+                        <i class="fas fa-users"></i>
+                        <h3>38</h3>
+                        <span>Docentes Activos</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card kpi-card">
+                        <i class="fas fa-building"></i>
+                        <h3>82%</h3>
+                        <span>Ocupación</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card kpi-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>14</h3>
+                        <span>Próximas Reservas</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Gráficos -->
+
+            <div class="row g-4">
+
+                <div class="col-lg-6">
+
+                    <div class="card dashboard-card">
+
+                        <div class="card-header">
+                            Uso por Tipo
+                        </div>
+
+                        <div class="card-body">
+                            <canvas id="tipoUsoChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="card dashboard-card">
+
+                        <div class="card-header">
+                            Reservas por Mes
+                        </div>
+
+                        <div class="card-body">
+                            <canvas id="reservasChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Tabla -->
+
+            <div class="card dashboard-card mt-4">
+
+                <div class="card-header">
+                    Últimas Reservas
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>12/06/2026</td>
+                                <td>Juan Pérez</td>
+                                <td>Lectura</td>
+                                <td>
+                                    <span class="badge bg-success">
+                                        Confirmada
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>13/06/2026</td>
+                                <td>María López</td>
+                                <td>Audiovisual</td>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        Confirmada
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Gráfico de tipos de uso
+
+        new Chart(
+            document.getElementById('tipoUsoChart'),
+            {
+                type: 'doughnut',
+
+                data: {
+                    labels: [
+                        'Lectura',
+                        'Audiovisual',
+                        'Extensión Cultural'
+                    ],
+
+                    datasets: [{
+                        data: [45, 35, 20],
+                        backgroundColor: [
+                            '#ff6b6b',
+                            '#4d96ff',
+                            '#c77dff'
+                        ]
+                    }]
+                }
+            }
+        );
+
+        // Reservas por mes
+
+        new Chart(
+            document.getElementById('reservasChart'),
+            {
+                type: 'bar',
+
+                data: {
+                    labels: [
+                        'Ene',
+                        'Feb',
+                        'Mar',
+                        'Abr',
+                        'May',
+                        'Jun'
+                    ],
+
+                    datasets: [{
+                        label: 'Reservas',
+                        data: [
+                            45,
+                            60,
+                            78,
+                            90,
+                            120,
+                            152
+                        ]
+                    }]
+                }
+            }
+        );
+    </script>
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
