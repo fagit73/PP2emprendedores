@@ -8,7 +8,7 @@ session_start();
 
 require_once 'config/config.php';
 
-require_once 'app/helpers/session_helper.php';
+require_once 'app/helpers/helpers.php';
 
 spl_autoload_register(function ($nombreClase) {
     require_once 'app/core/' . $nombreClase . '.php';

@@ -1,6 +1,7 @@
 <?php
 
-class Database {
+class Database
+{
     private $host = DB_HOST;
     private $user = DB_USER;
     private $pass = DB_PASS;
@@ -10,11 +11,12 @@ class Database {
     private $stmt;
     private $error;
 
-    public function __construct(){
+    public function __construct()
+    {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = [
-            PDO::ATTR_PERSISTENT => true, 
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
         try {
@@ -25,11 +27,13 @@ class Database {
         }
     }
 
-    public function query($sql) {
+    public function query($sql)
+    {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
-    public function bind($param, $valor, $tipo = null) {
+    public function bind($param, $valor, $tipo = null)
+    {
         if (is_null($tipo)) {
             if (is_int($valor)) $tipo = PDO::PARAM_INT;
             elseif (is_bool($valor)) $tipo = PDO::PARAM_BOOL;
@@ -39,13 +43,25 @@ class Database {
         $this->stmt->bindValue($param, $valor, $tipo);
     }
 
-    public function execute() {
+    public function execute()
+    {
         return $this->stmt->execute();
     }
 
-    public function registro() {
+    public function registro()
+    {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    public function registros()
+    {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ultimoId()
+    {
+        return $this->dbh->lastInsertId();
+    }
 }

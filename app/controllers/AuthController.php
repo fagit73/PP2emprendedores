@@ -3,7 +3,7 @@
 class AuthController extends Controller
 {
 
-    public function login()
+    public function index()
     {
         // si el usuario ya esta logueado, se manda al dashboard
         if (isset($_SESSION['id_usuario'])) {
@@ -39,7 +39,7 @@ class AuthController extends Controller
                     $_SESSION['nombre'] = $usuario->nombre_completo;
                     $_SESSION['rol'] = $usuario->nombre_rol;
 
-                    header('Location: ' . URLAPP . '/dashboard/index');
+                    header('Location: ' . URLAPP . '/dashboard/');
                     exit;
                 } else {
 

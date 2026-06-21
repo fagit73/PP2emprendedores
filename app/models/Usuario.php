@@ -70,4 +70,39 @@ class Usuario
 
         return $this->db->execute();
     }
+
+
+    public function getTodosUsuarios()
+    {
+        $this->db->query("SELECT u.*, r.nombre_rol FROM usuarios u LEFT JOIN roles r ON u.id_rol = r.id_rol");
+        return $this->db->registros();
+    }
+
+    public function getUsuarioById($id)
+    {
+        $this->db->query("SELECT * FROM usuarios WHERE id_usuario = :id");
+        $this->db->bind(':id', $id);
+        return $this->db->registro(); // Retorna un solo objeto
+    }
+
+    public function actualizarUsuario($datos)
+    {
+        $this->db->query("UPDATE 
+                            usuarios 
+                            SET 
+                                nombre_completo = :nombre_completo, 
+                                email_institucional = :email_institucional, 
+                                email_recuperacion = :email_recuperacion, 
+                                id_rol = :id_rol,
+                                activo = :activo 
+                            WHERE id_usuario = :id"
+                        );
+        $this->db->bind(':nombre_completo', $datos['nombre_completo']);
+        $this->db->bind(':email_institucional', $datos['email_institucional']);
+        $this->db->bind(':email_recuperacion', $datos['email_recuperacion']);
+        $this->db->bind(':id_rol', $datos['id_rol']);
+        $this->db->bind(':activo', $datos['activo']);
+        $this->db->bind(':id', $datos['id_usuario']);
+        return $this->db->execute();
+    }
 }

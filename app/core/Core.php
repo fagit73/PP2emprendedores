@@ -1,10 +1,12 @@
 <?php
-class Core {
+class Core
+{
     protected $controladorActual = 'AuthController';
-    protected $metodoActual = 'login';
+    protected $metodoActual = 'index';
     protected $parametros = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         $url = $this->getUrl();
 
         // Buscar controlador
@@ -15,6 +17,19 @@ class Core {
 
         require_once 'app/controllers/' . $this->controladorActual . '.php';
         $this->controladorActual = new $this->controladorActual;
+
+        // Definir controlador actual
+        define(
+            'CONTROLADOR_ACTUAL',
+            strtolower(
+                str_replace(
+                    'Controller',
+                    '',
+                    get_class($this->controladorActual)
+                )
+            )
+        );
+
 
         // Buscar método
         if (isset($url[1])) {
@@ -29,7 +44,8 @@ class Core {
         call_user_func_array([$this->controladorActual, $this->metodoActual], $this->parametros);
     }
 
-    public function getUrl() {
+    public function getUrl()
+    {
         if (isset($_GET['url'])) {
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
