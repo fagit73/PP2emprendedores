@@ -72,8 +72,12 @@ class Reserva
     public function getReservasUsuarioConfirmadas($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
+                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
+                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
+                            FROM proyecto_keywords pk
+                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
+                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
@@ -87,8 +91,12 @@ class Reserva
     public function getReservasUsuarioPendientes($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
+                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
+                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
+                            FROM proyecto_keywords pk
+                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
+                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
@@ -102,8 +110,12 @@ class Reserva
     public function getReservasAConfirmar()
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
+                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
+                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
+                            FROM proyecto_keywords pk
+                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
+                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
