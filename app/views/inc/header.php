@@ -38,17 +38,17 @@
                 <ul class="navbar-nav me-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link <?= $paginaActual == 'dashboard' ? 'active' : '' ?>"
+                        <a class="nav-link <?= ($paginaActual ?? '') == 'dashboard' ? 'active' : '' ?>"
                             href="<?= URLAPP ?>/dashboard/">
                             Dashboard
                         </a>
                     </li>
 
 
-                    <?php if (tieneRol(['Docente', 'Bibliotecario', 'Administrador'])): ?>
+                    <?php if (tieneRol(['DOCENTE', 'DIRECTIVO', 'ADMIN'])): ?>
 
                         <li class="nav-item">
-                            <a class="nav-link <?= $paginaActual == 'reservas' ? 'active' : '' ?>"
+                            <a class="nav-link <?= ($paginaActual ?? '') == 'reservas' ? 'active' : '' ?>"
                                 href="<?= URLAPP ?>/reserva/nueva">
                                 Reservar
                             </a>
@@ -57,10 +57,10 @@
                     <?php endif; ?>
 
 
-                    <?php if (tieneRol(['Bibliotecario', 'Administrador'])): ?>
+                    <?php if (tieneRol(['DIRECTIVO', 'ADMIN'])): ?>
 
                         <li class="nav-item">
-                            <a class="nav-link <?= $paginaActual == 'reportes' ? 'active' : '' ?>"
+                            <a class="nav-link <?= ($paginaActual ?? '') == 'reportes' ? 'active' : '' ?>"
                                 href="<?= URLAPP ?>/reporte/">
                                 Reportes
                             </a>
@@ -69,10 +69,10 @@
                     <?php endif; ?>
 
 
-                    <?php if (tieneRol(['Administrador'])): ?>
+                    <?php if (tieneRol(['ADMIN'])): ?>
 
                         <li class="nav-item">
-                            <a class="nav-link <?= $paginaActual == 'usuarios' ? 'active' : '' ?>"
+                            <a class="nav-link <?= ($paginaActual ?? '') == 'usuarios' ? 'active' : '' ?>"
                                 href="<?= URLAPP ?>/usuario/listar">
                                 Usuarios
                             </a>

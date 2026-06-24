@@ -42,7 +42,7 @@ class UsuarioController extends Controller
 
     public function listar()
     {
-        if (!tieneRol(['Bibliotecario', 'Administrador'])) {
+        if (!tieneRol(['ADMIN'])) {
             $_SESSION['error'] = "No tienes permiso para ver el listado de usuarios.";
             header('Location: ' . URLAPP . '/dashboard');
             exit;
@@ -55,7 +55,7 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
-        if (!tieneRol(['Bibliotecario', 'Administrador'])) {
+        if (!tieneRol(['ADMIN'])) {
             $_SESSION['error'] = "No tienes permiso para editar usuarios.";
             header('Location: ' . URLAPP . '/dashboard');
             exit;
@@ -74,7 +74,7 @@ class UsuarioController extends Controller
 
     public function actualizar()
     {
-        if (!tieneRol(['Bibliotecario', 'Administrador'])) {
+        if (!tieneRol(['ADMIN'])) {
             $_SESSION['error'] = "No tienes permiso para actualizar usuarios.";
             header('Location: ' . URLAPP . '/dashboard');
             exit;

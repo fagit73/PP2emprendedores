@@ -84,7 +84,7 @@ class ReservaController extends Controller
     public function confirmar($id_reserva)
     {
 
-        if (!tieneRol(['Bibliotecario', 'Administrador'])) {
+        if (!tieneRol(['ADMIN'])) {
             $_SESSION['error'] = "No tienes permiso para confirmar reservas.";
             header('Location: ' . URLAPP . '/dashboard');
             exit;
@@ -103,7 +103,7 @@ class ReservaController extends Controller
     public function cancelar($id_reserva)
     {
 
-        if (!tieneRol(['Bibliotecario', 'Administrador'])) {
+        if (!tieneRol(['ADMIN'])) {
             $_SESSION['error'] = "No tienes permiso para cancelar reservas.";
             header('Location: ' . URLAPP . '/dashboard');
             exit;
