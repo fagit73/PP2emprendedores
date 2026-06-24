@@ -46,20 +46,34 @@ INSERT IGNORE INTO horarios (hora_inicio, hora_fin) VALUES
   ('17:20:00','18:20:00'),('18:20:00','19:20:00'),('19:30:00','20:30:00'),
   ('20:30:00','21:30:00'),('21:30:00','22:30:00');
 
+CREATE TABLE IF NOT EXISTS salas (
+  id_sala INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL UNIQUE,
+  descripcion TEXT,
+  capacidad INT,
+  activa BOOLEAN DEFAULT TRUE
+);
+INSERT IGNORE INTO salas (id_sala, nombre, descripcion, capacidad) VALUES
+  (1,'Sala Multipropósito','Sala principal de la biblioteca',30),
+  (2,'Sala de Lectura','Espacio silencioso para estudio',20),
+  (3,'Aula Audiovisual','Sala con proyector y equipo multimedia',25);
+
 CREATE TABLE IF NOT EXISTS reservas (
   id_reserva INT AUTO_INCREMENT PRIMARY KEY,
   id_usuario INT NOT NULL,
   id_tipo_uso INT NOT NULL,
   id_horario INT NOT NULL,
+  id_sala INT NOT NULL DEFAULT 1,
   fecha_reserva DATE NOT NULL,
   dia_semana VARCHAR(20),
   motivo TEXT,
   modo_proposito ENUM('FORMULARIO','ARCHIVO','SIN_DATOS') DEFAULT 'SIN_DATOS',
-  estado ENUM('ACTIVA','CANCELADA','FINALIZADA') DEFAULT 'ACTIVA',
+  estado ENUM('PENDIENTE','ACTIVA','CANCELADA','FINALIZADA') DEFAULT 'PENDIENTE',
   fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_reserva_usuario FOREIGN KEY (id_usuario)  REFERENCES usuarios(id_usuario),
   CONSTRAINT fk_reserva_tipo    FOREIGN KEY (id_tipo_uso) REFERENCES tipos_uso(id_tipo_uso),
-  CONSTRAINT fk_reserva_horario FOREIGN KEY (id_horario)  REFERENCES horarios(id_horario)
+  CONSTRAINT fk_reserva_horario FOREIGN KEY (id_horario)  REFERENCES horarios(id_horario),
+  CONSTRAINT fk_reserva_sala    FOREIGN KEY (id_sala)     REFERENCES salas(id_sala)
 );
 
 CREATE TABLE IF NOT EXISTS proyectos (

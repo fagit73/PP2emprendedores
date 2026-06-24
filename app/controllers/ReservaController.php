@@ -11,12 +11,14 @@ class ReservaController extends Controller
 
     public function nueva()
     {
-        // Obtenemos los horarios base para pasarlos al JS sin necesidad de AJAX extra
+        // Obtenemos los horarios y las salas para pasarlos a la vista
         $horarios = $this->reservaModel->getAllHorarios();
+        $salas = $this->reservaModel->getAllSalas();
 
         $datos = [
             'titulo' => 'Nueva Reserva',
             'horarios' => $horarios, // Pasamos esto a la vista
+            'salas' => $salas,
             'js' => ['reserva.js']
         ];
         $this->view('reserva/nueva', $datos);
@@ -25,32 +27,45 @@ class ReservaController extends Controller
     public function guardar()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Determinar el modo de propósito según lo que cargó el usuario.
+            // (La subida de archivo todavía no está implementada: ver TODO.)
+            $modo = !empty($_POST['titulo']) ? 'FORMULARIO' : 'SIN_DATOS';
+
+            // Día de la semana en español a partir de la fecha.
+            $fecha = $_POST['fecha_reserva'] ?? null;
+            $dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            $dia_semana = $fecha ? $dias[(int)date('w', strtotime($fecha))] : null;
+
             // 1. Guardar Reserva
             $id_reserva = $this->reservaModel->guardarReserva([
-                'id_usuario' => $_SESSION['id_usuario'],
-                'id_tipo_uso' => $_POST['id_tipo_uso'],
-                'id_horario' => $_POST['id_horario'],
-                'id_sala'    => 1,
-                'fecha'      => $_POST['fecha_reserva']
+                'id_usuario'     => $_SESSION['id_usuario'],
+                'id_tipo_uso'    => $_POST['id_tipo_uso'],
+                'id_horario'     => $_POST['id_horario'],
+                'id_sala'        => $_POST['id_sala'] ?? 1,
+                'fecha'          => $fecha,
+                'dia_semana'     => $dia_semana,
+                'motivo'         => $_POST['motivo'] ?? null,
+                'modo_proposito' => $modo
             ]);
 
             if ($id_reserva) {
-                // 2. Si se eligió 'Completar formulario', guardar proyecto
-                if (isset($_POST['titulo']) && !empty($_POST['titulo'])) {
+                // 2. Si se eligió 'Completar formulario', guardar proyecto + keywords
+                if ($modo === 'FORMULARIO') {
                     $this->reservaModel->guardarProyecto([
                         'id_reserva'     => $id_reserva,
-                        'tipo_carga'     => 'FORMULARIO',
                         'titulo'         => $_POST['titulo'],
-                        'responsable'    => $_POST['responsable_proyecto'],
-                        'fecha_inicio'   => $_POST['fecha_inicio'],
-                        'fecha_fin'      => $_POST['fecha_fin'],
-                        'descripcion'    => $_POST['descripcion'],
-                        'evaluacion'     => $_POST['evaluacion'],
-                        'palabras_clave' => $_POST['palabras_clave']
+                        'responsable'    => $_POST['responsable_proyecto'] ?? null,
+                        'fecha_inicio'   => $_POST['fecha_inicio'] ?? null,
+                        'fecha_fin'      => $_POST['fecha_fin'] ?? null,
+                        'descripcion'    => $_POST['descripcion'] ?? null,
+                        'evaluacion'     => $_POST['evaluacion'] ?? null,
+                        'palabras_clave' => $_POST['palabras_clave'] ?? ''
                     ]);
                 }
-                header('Location: ' . URLAPP . '/dashboard');
             }
+
+            header('Location: ' . URLAPP . '/dashboard');
+            exit;
         }
     }
 
