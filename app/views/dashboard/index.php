@@ -15,6 +15,13 @@ include APPROOT . '/app/views/inc/header.php';
         </div>
     <?php endif; ?>
 
+    <?php if (isset($_SESSION['mensaje_exito'])) : ?>
+        <div class="alert alert-success" style="padding: 15px; background: #dcfce7; color: #166534; margin-bottom: 20px; border-radius: 5px;">
+            <?= $_SESSION['mensaje_exito']; ?>
+        </div>
+        <?php unset($_SESSION['mensaje_exito']); // Borramos el mensaje para que no aparezca al recargar 
+        ?>
+    <?php endif; ?>
     <div class="reserva-container" id="contenedor-listado">
         <div class="titulos">
             <h1>Mis Reservas Confirmadas</h1>
@@ -63,6 +70,13 @@ include APPROOT . '/app/views/inc/header.php';
                         <div style="display:flex; gap:20px; margin-top:10px;">
                             <span style="font-size:13px; color:#475569;">Horario: <strong><?= substr($r->hora_inicio, 0, 5) ?> - <?= substr($r->hora_fin, 0, 5) ?></strong></span>
                         </div>
+
+
+                    </div>
+
+                    <div style="display:flex; gap:8px; margin-left: 20px;">
+                        <a href="<?= URLAPP ?>/reserva/editar/<?= $r->id_reserva ?>" class="btn-accion">Editar</a>
+                        <a href="<?= URLAPP ?>/reserva/cancelar/<?= $r->id_reserva ?>" class="btn-accion">Cancelar</a>
                     </div>
 
                 </div>
@@ -95,10 +109,10 @@ include APPROOT . '/app/views/inc/header.php';
                                     <p style="margin:0;"><strong>Título:</strong> <?= htmlspecialchars($r->titulo) ?></p>
                                     <p style="margin:0;"><strong>Responsable:</strong> <?= htmlspecialchars($r->responsable_proyecto) ?></p>
                                     <p style="margin:0;"><strong>Fechas:</strong> <?= $r->fecha_inicio ?> al <?= $r->fecha_fin ?></p>
-                                    <p style="margin:0;"><strong>Evaluación:</strong> <?= htmlspecialchars($r->evaluacion) ?></p>
+                                    <p style="margin:0;"><strong>Evaluación:</strong> <?= htmlspecialchars($r->evaluacion ?? '') ?></p>
                                     <p style="margin:0; grid-column: span 2;"><strong>Descripción:</strong> <?= nl2br(htmlspecialchars($r->descripcion)) ?></p>
                                     <p style="margin:0; grid-column: span 2;"><strong>Palabras Clave:</strong>
-                                        <?php foreach (explode(',', $r->palabras_clave) as $tag): ?>
+                                        <?php foreach (explode(',', $r->palabras_clave ?? '') as $tag): ?>
                                             <span style="background:#e0e7ff; color:#4338ca; padding:2px 6px; border-radius:4px; margin-right:4px; font-size:11px;"><?= trim($tag) ?></span>
                                         <?php endforeach; ?>
                                     </p>
@@ -121,11 +135,11 @@ include APPROOT . '/app/views/inc/header.php';
                         </div>
                     </div>
 
-                    <!-- Botones
+
                     <div style="display:flex; gap:8px; margin-left: 20px;">
-                        <a href="<?= URLAPP ?>/reservas/editar/<?= $r->id_reserva ?>" class="btn-accion">Editar</a>
-                        <button onclick="cancelarReserva(<?= $r->id_reserva ?>)" class="btn-accion btn-eliminar">Eliminar</button>
-                    </div>-->
+                        <a href="<?= URLAPP ?>/reserva/editar/<?= $r->id_reserva ?>" class="btn-accion">Editar</a>
+                        <a href="<?= URLAPP ?>/reserva/cancelar/<?= $r->id_reserva ?>" class="btn-accion">Cancelar</a>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -156,10 +170,10 @@ include APPROOT . '/app/views/inc/header.php';
                                         <p style="margin:0;"><strong>Título:</strong> <?= htmlspecialchars($r->titulo) ?></p>
                                         <p style="margin:0;"><strong>Responsable:</strong> <?= htmlspecialchars($r->responsable_proyecto) ?></p>
                                         <p style="margin:0;"><strong>Fechas:</strong> <?= $r->fecha_inicio ?> al <?= $r->fecha_fin ?></p>
-                                        <p style="margin:0;"><strong>Evaluación:</strong> <?= htmlspecialchars($r->evaluacion) ?></p>
-                                        <p style="margin:0; grid-column: span 2;"><strong>Descripción:</strong> <?= nl2br(htmlspecialchars($r->descripcion)) ?></p>
+                                        <p style="margin:0;"><strong>Evaluación:</strong> <?= htmlspecialchars($r->evaluacion ?? '') ?></p>
+                                        <p style="margin:0; grid-column: span 2;"><strong>Descripción:</strong> <?= nl2br(htmlspecialchars($r->descripcion ?? '')) ?></p>
                                         <p style="margin:0; grid-column: span 2;"><strong>Palabras Clave:</strong>
-                                            <?php foreach (explode(',', $r->palabras_clave) as $tag): ?>
+                                            <?php foreach (explode(',', $r->palabras_clave ?? '') as $tag): ?>
                                                 <span style="background:#e0e7ff; color:#4338ca; padding:2px 6px; border-radius:4px; margin-right:4px; font-size:11px;"><?= trim($tag) ?></span>
                                             <?php endforeach; ?>
                                         </p>
@@ -184,8 +198,8 @@ include APPROOT . '/app/views/inc/header.php';
 
                         <!-- Botones -->
                         <div style="display:flex; gap:8px; margin-left: 20px;">
-                            <a href="<?= URLAPP ?>/reservas/cancelar/<?= $r->id_reserva ?>" class="btn-accion">Cancelar</a>
-                            <a href="<?= URLAPP ?>/reservas/confirmar/<?= $r->id_reserva ?>" class="btn-accion">Confirmar</a>
+                            <a href="<?= URLAPP ?>/reserva/cancelar/<?= $r->id_reserva ?>" class="btn-accion">Cancelar</a>
+                            <a href="<?= URLAPP ?>/reserva/confirmar/<?= $r->id_reserva ?>" class="btn-accion">Confirmar</a>
 
                         </div>
                     </div>

@@ -8,7 +8,7 @@ include APPROOT . '/app/views/inc/header.php';
 <!-- Main -->
 <main class="main-content">
 
-
+<div id="formContainer" class="dynamic-container" style="display: block;">
     <div class="reserva-container">
         <h1>Editar Usuario: <?= htmlspecialchars($datos['usuario']->nombre_completo) ?></h1>
 
@@ -61,7 +61,7 @@ include APPROOT . '/app/views/inc/header.php';
         </form>
     </div>
 
-
+</div>
 </main>
 
 

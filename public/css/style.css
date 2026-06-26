@@ -195,7 +195,8 @@ body {
     grid-column: span 2;
 }
 
-.form-input {
+.form-input,
+.select2-selection--multiple {
     width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
@@ -524,4 +525,17 @@ body {
 .time-slot.selected {
     background: #1d428a !important;
     color: white !important;
+}
+
+.calendar-day.disabled {
+    background: #f1f1f1;
+    color: #999;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+button:disabled{
+    opacity:.4;
+    cursor:not-allowed;
 }

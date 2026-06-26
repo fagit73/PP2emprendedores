@@ -13,10 +13,12 @@ class ReservaController extends Controller
     {
         // Obtenemos los horarios base para pasarlos al JS sin necesidad de AJAX extra
         $horarios = $this->reservaModel->getAllHorarios();
+        $palabrasClaves = $this->reservaModel->getPalabrasClaves();
 
         $datos = [
             'titulo' => 'Nueva Reserva',
-            'horarios' => $horarios, // Pasamos esto a la vista
+            'horarios' => $horarios,
+            'palabrasClaves' => $palabrasClaves,
             'js' => ['reserva.js']
         ];
         $this->view('reserva/nueva', $datos);
@@ -25,13 +27,17 @@ class ReservaController extends Controller
     public function guardar()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $estadoReserva = (isset($_POST['titulo']) && !empty($_POST['titulo'])) ? 'ACTIVA' : '';
+
             // 1. Guardar Reserva
             $id_reserva = $this->reservaModel->guardarReserva([
                 'id_usuario' => $_SESSION['id_usuario'],
                 'id_tipo_uso' => $_POST['id_tipo_uso'],
                 'id_horario' => $_POST['id_horario'],
                 'id_sala'    => 1,
-                'fecha'      => $_POST['fecha_reserva']
+                'fecha'      => $_POST['fecha_reserva'],
+                'estado'     => $estadoReserva
             ]);
 
             if ($id_reserva) {
@@ -103,8 +109,69 @@ class ReservaController extends Controller
         exit;
     }
 
+    public function editar($id_reserva)
+    {
+        $reserva = $this->reservaModel->getReservaById($id_reserva); // Asegúrate que este usa ->registro()
+        $proyecto = $this->reservaModel->getProyectoByReservaId($id_reserva);
+        $horarios = $this->reservaModel->getHorarios(); // Ahora esto funcionará
+        $palabrasClaves = $this->reservaModel->getPalabrasClaves();
+
+        $datos = [
+            'reserva' => $reserva,
+            'proyecto' => $proyecto,
+            'horarios' => $horarios,
+            'palabrasClaves' => $palabrasClaves,
+            'js' => ['reserva.js']
+        ];
+
+        $this->view('reserva/editar', $datos);
+    }
+
+    public function actualizar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id_reserva = $_POST['id_reserva'];
+            $id_usuario = $_SESSION['id_usuario'];
+
+            $datos = [
+                'id_reserva' => $id_reserva,
+                'id_usuario' => $id_usuario,
+                'id_tipo_uso' => $_POST['id_tipo_uso'],
+                'id_horario' => $_POST['id_horario'],
+                'fecha' => $_POST['fecha_reserva'],
+                'motivo' => $_POST['descripcion'], // O el campo que uses como motivo
+                'titulo' => $_POST['titulo'],
+                'responsable' => $_POST['responsable_proyecto'],
+                'fecha_inicio' => $_POST['fecha_inicio'],
+                'fecha_fin' => $_POST['fecha_fin'],
+                'descripcion' => $_POST['descripcion'],
+                'evaluacion' => $_POST['evaluacion'],
+                'palabras_clave' => $_POST['palabras_clave']
+            ];
+
+            //echo '<pre>';
+            //var_dump($datos);
+            //echo '</pre>';
+            //die();
+            // 1. Actualizar Reserva y Proyecto
+            // Asegúrate de que estos métodos existan en tu modelo y usen los datos de $datos
+            $reservaOk = $this->reservaModel->actualizarReserva($datos);
+            $proyectoOk = $this->reservaModel->actualizarProyecto($datos);
+
+            if ($reservaOk && $proyectoOk) {
+                // Guardamos el mensaje en la sesión
+                $_SESSION['mensaje_exito'] = "La reserva se ha actualizado correctamente.";
+                header('Location: ' . URLAPP . '/dashboard');
+                exit;
+            } else {
+                die("Error al actualizar los datos.");
+            }
+        }
+    }
+
+
     // Método AJAX para obtener horarios ocupados
-    public function obtenerHorariosOcupados($fecha)
+    public function obtenerHorariosOcupados($fecha, $id_reserva_actual = null)
     {
         $ocupados = $this->reservaModel->getHorariosOcupados($fecha);
         header('Content-Type: application/json');

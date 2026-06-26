@@ -31,6 +31,8 @@
                     Enviar enlace
                 </button>
             </form>
+
+            <a href="<?= URLAPP ?>/auth/login" class="link link-azul">← Volver al login</a>
         </div>
 
         <div id="pantalla-exito" style="display: none;">

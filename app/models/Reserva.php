@@ -25,27 +25,37 @@ class Reserva
     public function getAllHorarios()
     {
         $this->db->query("SELECT * FROM horarios ORDER BY hora_inicio ASC");
-        // Usamos el nuevo método 'registros()'
+        
+        return $this->db->registros();
+    }
+
+    public function getPalabrasClaves()
+    {
+        $this->db->query("SELECT * FROM palabras_clave");
+        
         return $this->db->registros();
     }
 
     public function guardarReserva($datos)
     {
-        // Asegúrate de que las comas estén bien puestas entre cada campo y cada valor
+        
         $sql = "INSERT INTO reservas (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, motivo, estado) 
-            VALUES (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :motivo, '')";
+            VALUES (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :motivo, :estado)";
 
         $this->db->query($sql);
+
+        $datos['motivo'] = '';
 
         $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
-        $this->db->bind(':id_sala', $datos['id_sala']); // Asegúrate de tener este
+        $this->db->bind(':id_sala', $datos['id_sala']); 
         $this->db->bind(':fecha', $datos['fecha']);
         $this->db->bind(':motivo', $datos['motivo']);
+        $this->db->bind(':estado', $datos['estado']);
 
         if ($this->db->execute()) {
-            return $this->db->ultimoId(); // Asegúrate de tener este método en Database.php
+            return $this->db->ultimoId(); 
         }
 
         return false;
@@ -129,6 +139,70 @@ class Reserva
         $this->db->query("UPDATE reservas SET estado = :estado WHERE id_reserva = :id");
         $this->db->bind(':estado', $estado);
         $this->db->bind(':id', $id);
+        return $this->db->execute();
+    }
+
+    public function getProyectoByReservaId($id_reserva)
+    {
+        $this->db->query("SELECT * FROM proyectos WHERE id_reserva = :id_reserva");
+        $this->db->bind(':id_reserva', $id_reserva);
+
+        // CAMBIA 'single()' por el nombre que encontraste en tu clase Database
+        return $this->db->registro();
+    }
+
+    public function getHorarios()
+    {
+        $this->db->query("SELECT * FROM horarios");
+        // Usa 'registros()' porque vas a traer muchos horarios
+        return $this->db->registros();
+    }
+    public function actualizarReserva($datos)
+    {
+        // Actualizamos la reserva asegurando que pertenezca al usuario de la sesión
+        $sql = "UPDATE reservas 
+            SET id_tipo_uso = :id_tipo_uso, 
+                id_horario = :id_horario, 
+                fecha_reserva = :fecha, 
+                motivo = :motivo 
+            WHERE id_reserva = :id_reserva 
+            AND id_usuario = :id_usuario"; // <--- CLAVE DE SEGURIDAD
+
+        $this->db->query($sql);
+
+        $this->db->bind(':id_reserva', $datos['id_reserva']);
+        $this->db->bind(':id_usuario', $datos['id_usuario']); // Validado por sesión
+        $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
+        $this->db->bind(':id_horario', $datos['id_horario']);
+        $this->db->bind(':fecha', $datos['fecha']);
+        $this->db->bind(':motivo', $datos['motivo']);
+
+        return $this->db->execute();
+    }
+
+    public function actualizarProyecto($datos)
+    {
+        $sql = "UPDATE proyectos SET 
+                titulo = :titulo, 
+                responsable_proyecto = :responsable, 
+                fecha_inicio = :f_ini, 
+                fecha_fin = :f_fin, 
+                descripcion = :desc, 
+                evaluacion = :eval, 
+                palabras_clave = :claves 
+            WHERE id_reserva = :id_reserva";
+
+        $this->db->query($sql);
+        $this->db->bind(':id_reserva', $datos['id_reserva']);
+        $this->db->bind(':titulo', $datos['titulo']);
+        $this->db->bind(':responsable', $datos['responsable']);
+        $this->db->bind(':f_ini', $datos['fecha_inicio']);
+        $this->db->bind(':f_fin', $datos['fecha_fin']);
+        $this->db->bind(':desc', $datos['descripcion']);
+        $this->db->bind(':eval', $datos['evaluacion']);
+        $this->db->bind(':claves', $datos['palabras_clave']);
+
+        // Ejecuta y devuelve si tuvo éxito
         return $this->db->execute();
     }
 }
