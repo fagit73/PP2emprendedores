@@ -44,18 +44,17 @@ class Reserva
 
     public function guardarReserva($datos)
     {
-<<<<<<< HEAD
-        
+    
         $sql = "INSERT INTO reservas (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, motivo, estado) 
             VALUES (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :motivo, :estado)";
-=======
+
         // El "tipo de carga" (FORMULARIO/ARCHIVO/SIN_DATOS) vive en reservas.modo_proposito.
         // Las reservas nuevas nacen como PENDIENTE hasta que un admin las confirma.
         $sql = "INSERT INTO reservas
                     (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, dia_semana, motivo, modo_proposito, estado)
                 VALUES
                     (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :dia_semana, :motivo, :modo_proposito, 'PENDIENTE')";
->>>>>>> 178ad7e5d38638b4b3fce103e820de762c429bc9
+
 
         $this->db->query($sql);
 
@@ -64,7 +63,7 @@ class Reserva
         $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
-<<<<<<< HEAD
+
         $this->db->bind(':id_sala', $datos['id_sala']); 
         $this->db->bind(':fecha', $datos['fecha']);
         $this->db->bind(':motivo', $datos['motivo']);
@@ -72,7 +71,7 @@ class Reserva
 
         if ($this->db->execute()) {
             return $this->db->ultimoId(); 
-=======
+
         $this->db->bind(':id_sala', $datos['id_sala']);
         $this->db->bind(':fecha', $datos['fecha']);
         $this->db->bind(':dia_semana', $datos['dia_semana'] ?? null);
@@ -81,7 +80,7 @@ class Reserva
 
         if ($this->db->execute()) {
             return $this->db->ultimoId();
->>>>>>> 178ad7e5d38638b4b3fce103e820de762c429bc9
+
         }
 
         return false;
