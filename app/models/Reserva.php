@@ -168,14 +168,11 @@ class Reserva
                 id_horario = :id_horario, 
                 fecha_reserva = :fecha, 
                 motivo = :motivo 
-            WHERE id_reserva = :id_reserva 
-            AND (:es_admin = 1 OR id_usuario = :id_usuario)";
+            WHERE id_reserva = :id_reserva";
 
         $this->db->query($sql);
 
         $this->db->bind(':id_reserva', $datos['id_reserva']);
-        $this->db->bind(':es_admin', $_SESSION['id_rol']); // Pasamos el rol
-        $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
         $this->db->bind(':fecha', $datos['fecha']);

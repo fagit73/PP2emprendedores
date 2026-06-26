@@ -132,7 +132,7 @@
 
             <div style="margin-top: 30px; text-align: center;">
                 <button type="submit" class="btn-confirmar">Guardar Cambios</button>
-                <a href="<?= URLAPP ?>/reserva" class="btn-cancelar">Cancelar</a>
+                <a href="<?= URLAPP ?>/dashboard" class="btn-cancelar">Cancelar</a>
             </div>
         </form>
     </div>
