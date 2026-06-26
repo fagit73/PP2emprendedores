@@ -239,8 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-
     $(document).ready(function() {
     $('#palabras_clave').select2({
         width: '100%'
