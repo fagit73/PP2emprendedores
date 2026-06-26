@@ -145,7 +145,7 @@ include APPROOT . '/app/views/inc/header.php';
         <?php endif; ?>
     </div>
 
-    <?php if (tieneRol(['Bibliotecario', 'Administrador'])): ?>
+    <?php if (tieneRol(['ADMIN'])): ?>
         <div class="reserva-container" id="contenedor-listado">
             <div class="titulos">
                 <h1>Reservas a Confirmar</h1>

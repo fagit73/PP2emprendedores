@@ -30,7 +30,16 @@
                 </label>
             </div>
 
-            <h3 style="margin-top: 25px;">2. ¿Para qué necesitas el turno?</h3>
+            <h3 style="margin-top: 25px;">2. Sala</h3>
+            <div class="form-group-item">
+                <select name="id_sala" class="form-input" required>
+                    <?php foreach ($datos['salas'] as $sala): ?>
+                        <option value="<?= $sala->id_sala ?>"><?= htmlspecialchars($sala->nombre) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <h3 style="margin-top: 25px;">3. ¿Para qué necesitas el turno?</h3>
             <div class="purpose-buttons">
                 <button type="button" class="btn-purpose">Completar formulario</button>
                 <button type="button" class="btn-purpose">Subir Archivo</button>
