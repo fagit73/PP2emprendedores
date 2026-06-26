@@ -42,19 +42,12 @@ class Reserva
         return $this->db->registros();
     }
 
+
     public function guardarReserva($datos)
     {
-    
+        
         $sql = "INSERT INTO reservas (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, motivo, estado) 
             VALUES (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :motivo, :estado)";
-
-        // El "tipo de carga" (FORMULARIO/ARCHIVO/SIN_DATOS) vive en reservas.modo_proposito.
-        // Las reservas nuevas nacen como PENDIENTE hasta que un admin las confirma.
-        $sql = "INSERT INTO reservas
-                    (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, dia_semana, motivo, modo_proposito, estado)
-                VALUES
-                    (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :dia_semana, :motivo, :modo_proposito, 'PENDIENTE')";
-
 
         $this->db->query($sql);
 
@@ -63,7 +56,6 @@ class Reserva
         $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
-
         $this->db->bind(':id_sala', $datos['id_sala']); 
         $this->db->bind(':fecha', $datos['fecha']);
         $this->db->bind(':motivo', $datos['motivo']);
@@ -71,44 +63,27 @@ class Reserva
 
         if ($this->db->execute()) {
             return $this->db->ultimoId(); 
-
-        $this->db->bind(':id_sala', $datos['id_sala']);
-        $this->db->bind(':fecha', $datos['fecha']);
-        $this->db->bind(':dia_semana', $datos['dia_semana'] ?? null);
-        $this->db->bind(':motivo', $datos['motivo'] ?? null);
-        $this->db->bind(':modo_proposito', $datos['modo_proposito'] ?? 'SIN_DATOS');
-
-        if ($this->db->execute()) {
-            return $this->db->ultimoId();
-
         }
 
         return false;
     }
 
-    public function guardarProyecto($datosProyecto)
+   public function guardarProyecto($datosProyecto)
     {
-        $this->db->query("INSERT INTO proyectos (id_reserva, titulo, docente, fecha_inicio, fecha_fin, descripcion, evaluacion, archivo)
-                      VALUES (:id_reserva, :titulo, :docente, :f_ini, :f_fin, :desc, :eval, :archivo)");
+        $this->db->query("INSERT INTO proyectos (id_reserva, tipo_carga, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
+                      VALUES (:id_reserva, :tipo, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
 
         $this->db->bind(':id_reserva', $datosProyecto['id_reserva']);
-        $this->db->bind(':titulo', $datosProyecto['titulo'] ?? null);
-        $this->db->bind(':docente', $datosProyecto['responsable'] ?? null);
-        $this->db->bind(':f_ini', ($datosProyecto['fecha_inicio'] ?? '') ?: null);
-        $this->db->bind(':f_fin', ($datosProyecto['fecha_fin'] ?? '') ?: null);
-        $this->db->bind(':desc', $datosProyecto['descripcion'] ?? null);
-        $this->db->bind(':eval', $datosProyecto['evaluacion'] ?? null);
-        $this->db->bind(':archivo', $datosProyecto['archivo'] ?? null);
+        $this->db->bind(':tipo', $datosProyecto['tipo_carga']);
+        $this->db->bind(':titulo', $datosProyecto['titulo']);
+        $this->db->bind(':responsable', $datosProyecto['responsable']);
+        $this->db->bind(':f_ini', $datosProyecto['fecha_inicio']);
+        $this->db->bind(':f_fin', $datosProyecto['fecha_fin']);
+        $this->db->bind(':desc', $datosProyecto['descripcion']);
+        $this->db->bind(':eval', $datosProyecto['evaluacion']);
+        $this->db->bind(':claves', $datosProyecto['palabras_clave']);
 
-        if ($this->db->execute()) {
-            $id_proyecto = $this->db->ultimoId();
-            if (!empty($datosProyecto['palabras_clave'])) {
-                $this->asignarPalabrasClave($id_proyecto, $datosProyecto['palabras_clave']);
-            }
-            return $id_proyecto;
-        }
-
-        return false;
+        return $this->db->execute();
     }
 
     // Guarda las palabras clave en la tabla normalizada (palabras_clave + proyecto_keywords).
