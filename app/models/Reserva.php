@@ -63,11 +63,11 @@ class Reserva
 
     public function guardarProyecto($datosProyecto)
     {
-        $this->db->query("INSERT INTO proyectos (id_reserva, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
-                      VALUES (:id_reserva, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
+        $this->db->query("INSERT INTO proyectos (id_reserva, tipo_carga, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
+                      VALUES (:id_reserva, :tipo, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
 
         $this->db->bind(':id_reserva', $datosProyecto['id_reserva']);
-        //$this->db->bind(':tipo', $datosProyecto['tipo_carga']);
+        $this->db->bind(':tipo', $datosProyecto['tipo_carga']);
         $this->db->bind(':titulo', $datosProyecto['titulo']);
         $this->db->bind(':responsable', $datosProyecto['responsable']);
         $this->db->bind(':f_ini', $datosProyecto['fecha_inicio']);
@@ -82,7 +82,7 @@ class Reserva
     public function getReservasUsuarioConfirmadas($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
                   p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
@@ -97,7 +97,7 @@ class Reserva
     public function getReservasUsuarioPendientes($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
                   p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
@@ -112,7 +112,7 @@ class Reserva
     public function getReservasAConfirmar()
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
                   p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
