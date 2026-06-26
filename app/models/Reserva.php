@@ -10,7 +10,7 @@ class Reserva
 
     public function getHorariosOcupados($fecha)
     {
-        $this->db->query("SELECT id_horario FROM reservas WHERE fecha_reserva = :fecha AND estado != 'CANCELADA'");
+        $this->db->query("SELECT id_horario FROM reservas WHERE fecha_reserva = :fecha AND estado != 'cancelada'");
         $this->db->bind(':fecha', $fecha);
         // Usamos el nuevo método 'registros()'
         $resultados = $this->db->registros();
@@ -35,13 +35,6 @@ class Reserva
         
         return $this->db->registros();
     }
-
-    public function getAllSalas()
-    {
-        $this->db->query("SELECT * FROM salas WHERE activa = 1 ORDER BY nombre ASC");
-        return $this->db->registros();
-    }
-
 
     public function guardarReserva($datos)
     {
@@ -68,7 +61,7 @@ class Reserva
         return false;
     }
 
-   public function guardarProyecto($datosProyecto)
+    public function guardarProyecto($datosProyecto)
     {
         $this->db->query("INSERT INTO proyectos (id_reserva, tipo_carga, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
                       VALUES (:id_reserva, :tipo, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
@@ -86,43 +79,11 @@ class Reserva
         return $this->db->execute();
     }
 
-    // Guarda las palabras clave en la tabla normalizada (palabras_clave + proyecto_keywords).
-    // Acepta texto separado por comas, ej: "Matemática, Ingles".
-    public function asignarPalabrasClave($id_proyecto, $palabras)
-    {
-        $lista = array_filter(array_map('trim', explode(',', $palabras)));
-
-        foreach ($lista as $nombre) {
-            // Crea la palabra clave si no existe todavía.
-            $this->db->query("INSERT IGNORE INTO palabras_clave (nombre) VALUES (:nombre)");
-            $this->db->bind(':nombre', $nombre);
-            $this->db->execute();
-
-            // Obtiene su id.
-            $this->db->query("SELECT id_keyword FROM palabras_clave WHERE nombre = :nombre");
-            $this->db->bind(':nombre', $nombre);
-            $kw = $this->db->registro();
-            if (!$kw) {
-                continue;
-            }
-
-            // Vincula keyword <-> proyecto.
-            $this->db->query("INSERT IGNORE INTO proyecto_keywords (id_proyecto, id_keyword) VALUES (:id_proyecto, :id_keyword)");
-            $this->db->bind(':id_proyecto', $id_proyecto);
-            $this->db->bind(':id_keyword', $kw->id_keyword);
-            $this->db->execute();
-        }
-    }
-
     public function getReservasUsuarioConfirmadas($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
-                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
-                            FROM proyecto_keywords pk
-                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
-                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
@@ -136,17 +97,13 @@ class Reserva
     public function getReservasUsuarioPendientes($id_usuario)
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
-                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
-                            FROM proyecto_keywords pk
-                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
-                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
                   LEFT JOIN proyectos p ON r.id_reserva = p.id_reserva
-                          WHERE r.id_usuario = :id_usuario AND r.estado = 'PENDIENTE'
+                          WHERE r.id_usuario = :id_usuario AND (r.estado = '' OR r.estado = 'PENDIENTE')
                           ORDER BY r.fecha_reserva ASC");
         $this->db->bind(':id_usuario', $id_usuario);
         return $this->db->registros();
@@ -155,17 +112,13 @@ class Reserva
     public function getReservasAConfirmar()
     {
         $this->db->query("SELECT r.*, t.nombre, h.hora_inicio, h.hora_fin, 
-                  r.modo_proposito AS tipo_carga, p.titulo, p.archivo, p.docente AS responsable_proyecto,
-                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion,
-                  COALESCE((SELECT GROUP_CONCAT(pc.nombre SEPARATOR ', ')
-                            FROM proyecto_keywords pk
-                            JOIN palabras_clave pc ON pk.id_keyword = pc.id_keyword
-                            WHERE pk.id_proyecto = p.id_proyecto), '') AS palabras_clave
+                  p.tipo_carga, p.titulo, p.archivo, p.responsable_proyecto, 
+                  p.fecha_inicio, p.fecha_fin, p.descripcion, p.evaluacion, p.palabras_clave
                   FROM reservas r
                   JOIN tipos_uso t ON r.id_tipo_uso = t.id_tipo_uso
                   JOIN horarios h ON r.id_horario = h.id_horario
                   LEFT JOIN proyectos p ON r.id_reserva = p.id_reserva
-                          WHERE r.estado = 'PENDIENTE'
+                          WHERE (r.estado = '' OR r.estado = 'PENDIENTE')
                           ORDER BY r.fecha_reserva ASC");
 
         return $this->db->registros();

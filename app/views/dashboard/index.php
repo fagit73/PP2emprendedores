@@ -199,6 +199,7 @@ include APPROOT . '/app/views/inc/header.php';
                         <!-- Botones -->
                         <div style="display:flex; gap:8px; margin-left: 20px;">
                             <a href="<?= URLAPP ?>/reserva/cancelar/<?= $r->id_reserva ?>" class="btn-accion">Cancelar</a>
+                            <a href="<?= URLAPP ?>/reserva/editar/<?= $r->id_reserva ?>" class="btn-accion">Editar</a>
                             <a href="<?= URLAPP ?>/reserva/confirmar/<?= $r->id_reserva ?>" class="btn-accion">Confirmar</a>
 
                         </div>
