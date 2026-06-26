@@ -52,7 +52,7 @@
                     </li>
 
 
-                    <?php if (tieneRol(['Docente', 'Bibliotecario', 'Administrador'])): ?>
+                    <?php if (tieneRol(['DOCENTE', 'DIRECTIVO', 'ADMIN'])): ?>
 
                         <li class="nav-item">
                             <a class="nav-link <?= $paginaActual == 'reservas' ? 'active' : '' ?>"
@@ -64,7 +64,7 @@
                     <?php endif; ?>
 
 
-                    <?php if (tieneRol(['Bibliotecario', 'Administrador'])): ?>
+                    <?php if (tieneRol(['DIRECTIVO', 'ADMIN'])): ?>
 
                         <li class="nav-item">
                             <a class="nav-link <?= $paginaActual == 'reportes' ? 'active' : '' ?>"
@@ -76,7 +76,7 @@
                     <?php endif; ?>
 
 
-                    <?php if (tieneRol(['Administrador'])): ?>
+                    <?php if (tieneRol(['ADMIN'])): ?>
 
                         <li class="nav-item">
                             <a class="nav-link <?= $paginaActual == 'usuarios' ? 'active' : '' ?>"
