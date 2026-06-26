@@ -25,20 +25,20 @@ class Reserva
     public function getAllHorarios()
     {
         $this->db->query("SELECT * FROM horarios ORDER BY hora_inicio ASC");
-        
+
         return $this->db->registros();
     }
 
     public function getPalabrasClaves()
     {
         $this->db->query("SELECT * FROM palabras_clave");
-        
+
         return $this->db->registros();
     }
 
     public function guardarReserva($datos)
     {
-        
+
         $sql = "INSERT INTO reservas (id_usuario, id_tipo_uso, id_horario, id_sala, fecha_reserva, motivo, estado) 
             VALUES (:id_usuario, :id_tipo_uso, :id_horario, :id_sala, :fecha, :motivo, :estado)";
 
@@ -49,13 +49,13 @@ class Reserva
         $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
-        $this->db->bind(':id_sala', $datos['id_sala']); 
+        $this->db->bind(':id_sala', $datos['id_sala']);
         $this->db->bind(':fecha', $datos['fecha']);
         $this->db->bind(':motivo', $datos['motivo']);
         $this->db->bind(':estado', $datos['estado']);
 
         if ($this->db->execute()) {
-            return $this->db->ultimoId(); 
+            return $this->db->ultimoId();
         }
 
         return false;
@@ -157,21 +157,25 @@ class Reserva
         // Usa 'registros()' porque vas a traer muchos horarios
         return $this->db->registros();
     }
+
+
     public function actualizarReserva($datos)
     {
-        // Actualizamos la reserva asegurando que pertenezca al usuario de la sesión
+        // Usamos OR para permitir que el admin edite sin importar el id_usuario
+        // O que el usuario sea el dueño.
         $sql = "UPDATE reservas 
             SET id_tipo_uso = :id_tipo_uso, 
                 id_horario = :id_horario, 
                 fecha_reserva = :fecha, 
                 motivo = :motivo 
             WHERE id_reserva = :id_reserva 
-            AND id_usuario = :id_usuario"; // <--- CLAVE DE SEGURIDAD
+            AND (:es_admin = 1 OR id_usuario = :id_usuario)";
 
         $this->db->query($sql);
 
         $this->db->bind(':id_reserva', $datos['id_reserva']);
-        $this->db->bind(':id_usuario', $datos['id_usuario']); // Validado por sesión
+        $this->db->bind(':es_admin', $_SESSION['id_rol']); // Pasamos el rol
+        $this->db->bind(':id_usuario', $datos['id_usuario']);
         $this->db->bind(':id_tipo_uso', $datos['id_tipo_uso']);
         $this->db->bind(':id_horario', $datos['id_horario']);
         $this->db->bind(':fecha', $datos['fecha']);

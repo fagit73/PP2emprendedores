@@ -38,6 +38,7 @@ class AuthController extends Controller
                     $_SESSION['id_usuario'] = $usuario->id_usuario;
                     $_SESSION['nombre'] = $usuario->nombre_completo;
                     $_SESSION['rol'] = $usuario->nombre_rol;
+                    $_SESSION['id_rol'] = $usuario->id_rol;
 
                     header('Location: ' . URLAPP . '/dashboard/');
                     exit;
