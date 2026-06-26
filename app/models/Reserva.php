@@ -63,10 +63,10 @@ class Reserva
 
     public function guardarProyecto($datosProyecto)
     {
-        $this->db->query("INSERT INTO proyectos (tipo_carga, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
-                      VALUES (:tipo, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
+        $this->db->query("INSERT INTO proyectos (id_reserva, tipo_carga, titulo, responsable_proyecto, fecha_inicio, fecha_fin, descripcion, evaluacion, palabras_clave) 
+                      VALUES (:id_reserva, :tipo, :titulo, :responsable, :f_ini, :f_fin, :desc, :eval, :claves)");
 
-        //$this->db->bind(':id_reserva', $datosProyecto['id_reserva']);
+        $this->db->bind(':id_reserva', $datosProyecto['id_reserva']);
         $this->db->bind(':tipo', $datosProyecto['tipo_carga']);
         $this->db->bind(':titulo', $datosProyecto['titulo']);
         $this->db->bind(':responsable', $datosProyecto['responsable']);
