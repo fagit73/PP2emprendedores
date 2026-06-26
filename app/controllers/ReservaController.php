@@ -28,7 +28,8 @@ class ReservaController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $estadoReserva = (isset($_POST['titulo']) && !empty($_POST['titulo'])) ? 'ACTIVA' : '';
+            //$estadoReserva = (isset($_POST['titulo']) && !empty($_POST['titulo'])) ? 'ACTIVA' : '';
+            $estadoReserva = "ACTIVA";
 
             // 1. Guardar Reserva
             $id_reserva = $this->reservaModel->guardarReserva([
