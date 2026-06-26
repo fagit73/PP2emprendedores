@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // 1. VARIABLES GLOBALES (Deben ir primero)
@@ -250,4 +248,3 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 });
 });
-
