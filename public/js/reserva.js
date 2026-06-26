@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             calendarDays.appendChild(dayDiv);
         }
+        actualizarBotonesNavegacion(); 
     };
 
     const renderTimeSlots = async (fechaFormateada) => {
@@ -138,33 +139,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const actualizarBotonesNavegacion = () => {
+        const prevBtn = document.getElementById('prevMonth');
+        // Comparamos si el mes de la vista es el mismo que el mes de "hoy"
+        const esMesActual =
+            currentViewDate.getMonth() === hoy.getMonth() &&
+            currentViewDate.getFullYear() === hoy.getFullYear();
+
+        // Si estamos en el mes actual, deshabilitamos el botón
+        prevBtn.disabled = esMesActual;
+
+        // Opcional: darle un estilo visual de deshabilitado
+        if (prevBtn.disabled) {
+            prevBtn.style.opacity = "0.3";
+            prevBtn.style.cursor = "not-allowed";
+        } else {
+            prevBtn.style.opacity = "1";
+            prevBtn.style.cursor = "pointer";
+        }
+    };
+
     // 3. EVENTOS
     document.getElementById('prevMonth').addEventListener('click', () => {
-
         const nuevoMes = new Date(currentViewDate);
         nuevoMes.setMonth(nuevoMes.getMonth() - 1);
 
-        // Primer día del mes actual
+        // Lógica de límite (opcional, ya la tenías)
         const limite = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-
-        // Primer día del mes al que quiero ir
-        const destino = new Date(
-            nuevoMes.getFullYear(),
-            nuevoMes.getMonth(),
-            1
-        );
-
-        if (destino < limite)
-            return;
+        if (nuevoMes < limite) return;
 
         currentViewDate = nuevoMes;
         renderCalendar();
-
+        actualizarBotonesNavegacion(); // <--- LLAMA AQUÍ
     });
 
     document.getElementById('nextMonth').addEventListener('click', () => {
         currentViewDate.setMonth(currentViewDate.getMonth() + 1);
         renderCalendar();
+        actualizarBotonesNavegacion(); // <--- LLAMA AQUÍ
     });
 
     // --- 1. LÓGICA DE PROPÓSITO ---
@@ -239,10 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    $(document).ready(function() {
-    $('#palabras_clave').select2({
-        width: '100%'
-    }
-    );
-});
+    $(document).ready(function () {
+        $('#palabras_clave').select2({
+            width: '100%'
+        }
+        );
+    });
 });
